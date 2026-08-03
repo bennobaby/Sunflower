@@ -20,12 +20,16 @@
     --seed:#3B2A15;
     --rule:#CFC5AE;
 
+    /* the day's eye */
+    --daisy:#FFFDF7;      --daisy-edge:#D6CAAE;
+    --daisy-shade:#EFE7D4; --daisy-tip:#EFC7CE;
+
     /* the rest of the garden */
     --tulip:#D26A85;      --tulip-deep:#B94E6B;
     --lotus:#EEB2C6;      --lotus-deep:#DB8FA9;
     --blossom:#F3C6D4;    --blossom-deep:#E29DB4;
     --lavender:#9083BB;   --lavender-deep:#75669F;
-    --daisy:#FFFCF4;      --daisy-edge:#DFD4BC;
+    /* the sunflower keeps the page's own gold */
 
     /* the greeting card up front */
     --card:#F2E5C6;
@@ -298,37 +302,71 @@
   .pip{width:5px;height:5px;border-radius:50%;background:var(--rule);will-change:transform}
   .pip.on{background:var(--gold-deep)}
 
-  /* ---------- 03 · day into night ---------- */
-  .room{
-    position:relative;height:min(400px,58vh);overflow:hidden;border:1px solid var(--rule);
-    background:linear-gradient(180deg,#FBE7BC 0%,#F7D8A2 58%,#E9C489 100%);
+  /* ---------- 03 · loves me, loves me not ---------- */
+  .asker{margin-bottom:1.4rem;display:grid;gap:.4rem;max-width:34rem}
+  .asker input{min-width:0;width:100%}
+  .oracle{
+    position:relative;min-height:min(430px,62vh);overflow:hidden;border:1px solid var(--rule);
+    display:grid;place-items:center;padding:2rem 1rem 7rem;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,0) 62%),
+      var(--paper-deep);
   }
-  .room > *{position:absolute;inset:0}
-  .night{
-    background:linear-gradient(180deg,#131B36 0%,#1D2547 46%,#2A2F4F 100%);
-    opacity:0;
+  #oracle-art{width:min(320px,68vw);height:auto;display:block;overflow:visible}
+  /* Rays scale from the base by the disc, so one lifts away from the head. */
+  #oracle-rays ellipse{cursor:pointer;transform-box:fill-box;transform-origin:50% 100%}
+  #oracle-dots circle{transform-box:fill-box;transform-origin:50% 50%}
+  #oracle-rays ellipse:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .oracle.is-done #oracle-rays ellipse{cursor:default}
+  .oracleglow{
+    position:absolute;left:50%;top:44%;width:52%;aspect-ratio:1;
+    transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:0;
+    background:radial-gradient(circle closest-side,rgba(255,206,120,.5),rgba(255,206,120,0) 72%);
   }
-  .stars i{position:absolute;display:block;width:2px;height:2px;border-radius:50%;background:#FFF6DC;opacity:0}
-  .moon{inset:auto;right:12%;top:14%;width:64px;height:64px;opacity:0;will-change:transform}
-  .moon svg{width:100%;height:100%;display:block}
-  .daysun{inset:auto;right:13%;top:15%;width:58px;height:58px;border-radius:50%;
-    background:radial-gradient(circle,#FFE9A8 38%,#F7C761 70%,rgba(247,199,97,0) 72%);
-    box-shadow:0 0 60px 24px rgba(255,213,124,.55);will-change:transform}
-  #room-art{width:100%;height:100%}
-  .roomglow{
-    inset:auto;left:50%;top:52%;width:44%;aspect-ratio:1;margin:-22% 0 0 -22%;
-    border-radius:50%;pointer-events:none;opacity:0;
-    background:radial-gradient(circle closest-side,rgba(255,208,124,.46),rgba(255,208,124,0) 72%);
+  .verdict{
+    position:absolute;left:1rem;right:1rem;bottom:3.4rem;text-align:center;
+    font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--sepia);will-change:transform,opacity;
   }
-  .room-btn{
-    inset:auto;right:1rem;bottom:1rem;
+  .verdict.warm{color:var(--gold-deep)}
+  .verdict .left{display:block;margin-top:.5rem;font-size:.6rem;letter-spacing:.22em;color:var(--faint)}
+  .oracle-btn{
+    position:absolute;right:1rem;bottom:1rem;
     font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.22em;
     text-transform:uppercase;color:var(--ink);background:rgba(255,253,246,.82);
     border:0;border-radius:0;padding:.55rem 1rem;cursor:pointer;will-change:transform;
     backdrop-filter:blur(2px);
   }
-  .room-btn:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-  .room.is-night .room-btn{background:rgba(20,26,50,.7);color:#F6ECD4}
+  .oracle-btn:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+  /* ---------- 04 · the chain ---------- */
+  .chain{
+    position:relative;overflow:hidden;border:1px solid var(--rule);cursor:pointer;
+    display:grid;place-items:center;padding:1.6rem 1rem 6.4rem;min-height:min(380px,56vh);
+    touch-action:manipulation;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.4) 0%,rgba(255,255,255,0) 60%),
+      var(--paper-deep);
+  }
+  .chain:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+  #chain-art{width:min(540px,86vw);height:auto;display:block;overflow:visible}
+  #chain-links > g{transform-box:fill-box;transform-origin:50% 50%}
+
+  /* ---------- 06 · the sealed one ---------- */
+  .sealed{
+    border:1px solid var(--rule);background:#FFFDF6;padding:2.6rem 2rem;
+    display:grid;justify-items:center;gap:1.4rem;text-align:center;
+  }
+  .seal{width:min(120px,30vw);height:auto;display:block;will-change:transform}
+  .letter{max-width:44ch;text-align:left;margin-top:.6rem}
+  .letter p{font-size:clamp(1.05rem,2.3vw,1.28rem);line-height:1.6}
+  .letter p + p{margin-top:1rem;color:var(--sepia)}
+  .letter .w{display:inline-block;will-change:transform,opacity}
+  .unlock-cue{
+    margin-top:1.4rem;display:inline-flex;align-items:center;gap:.6rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--gold-deep);
+  }
 
   .theory{margin-top:2.4rem;max-width:46ch}
   .theory p{font-size:clamp(1.08rem,2.3vw,1.32rem);line-height:1.58}
@@ -375,7 +413,8 @@
   .motion-ready .intro-go{opacity:0}
   .motion-ready .plate-art{opacity:0}
   .motion-ready #petals-back ellipse,
-  .motion-ready #petals-front ellipse{transform:scale(0)}
+  .motion-ready #petals-front ellipse,
+  .motion-ready #oracle-rays ellipse{transform:scale(0)}
   .motion-ready #seeds circle{opacity:0;transform:scale(0)}
   .motion-ready h1.title span,
   .motion-ready .eyebrow .mono,
@@ -420,10 +459,10 @@
   <div class="intro-shape slab"></div>
   <div class="intro-inner">
     <svg id="intro-flower" viewBox="0 0 200 200" role="img" aria-label="A flower">
-      <g id="intro-petals-a" fill="var(--card-red)"></g>
-      <g id="intro-petals-b" fill="var(--card-red-deep)" opacity=".62"></g>
-      <circle cx="100" cy="100" r="33" fill="var(--card-gold)"/>
-      <circle cx="100" cy="100" r="12" fill="var(--card-ink)"/>
+      <g id="intro-petals-a" fill="var(--card-pink)"></g>
+      <g id="intro-petals-b" fill="#FFFDF7" stroke="var(--card-ink)" stroke-width="1.6"></g>
+      <circle cx="100" cy="100" r="30" fill="var(--card-gold)"/>
+      <circle cx="100" cy="100" r="9" fill="var(--card-ink)"/>
     </svg>
     <h1 class="hi" id="hi" aria-label="hi, Diya">hi, Diya</h1>
     <p class="intro-note">made you something</p>
@@ -435,17 +474,17 @@
 
 <header class="plate" id="hero">
   <div class="plate-art">
-    <svg id="hero-flower" viewBox="0 0 300 300" role="img" aria-label="A sunflower whose head turns to follow the light">
+    <svg id="hero-flower" viewBox="0 0 300 300" role="img" aria-label="A daisy whose head turns to follow the light">
       <g id="stem-group" fill="none" stroke="var(--leaf)" stroke-linecap="round">
         <path id="stem" d="M150 150 C 147 200, 154 236, 150 300" stroke-width="4"/>
         <path id="leafL" d="M150 218 C 126 206, 104 210, 96 226 C 118 236, 140 232, 150 218" stroke-width="2.4"/>
         <path id="leafR" d="M151 252 C 172 242, 191 246, 198 260 C 179 269, 160 265, 151 252" stroke-width="2.4"/>
       </g>
       <g id="flower-head">
-        <g id="petals-back" fill="var(--gold-deep)" opacity=".8"></g>
-        <g id="petals-front" fill="var(--gold)"></g>
-        <circle cx="150" cy="118" r="42" fill="var(--seed)"/>
-        <g id="seeds" fill="#6A502C"></g>
+        <g id="petals-back" fill="var(--daisy-tip)" opacity=".62"></g>
+        <g id="petals-front" fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width="1"></g>
+        <circle cx="150" cy="118" r="33" fill="var(--gold)"/>
+        <g id="seeds" fill="#C68C24"></g>
       </g>
     </svg>
     <div class="tick-row" aria-hidden="true"></div>
@@ -453,11 +492,11 @@
 
   <div class="plate-text">
     <div class="eyebrow">
-      <span class="mono">helianthus annuus</span>
+      <span class="mono">bellis perennis</span>
       <span class="hair"></span>
     </div>
-    <h1 class="title"><span>sunflowers</span></h1>
-    <p class="lede">A very small website about your favourite flower. The head follows you — <i>heliotropism</i>, the same trick it plays on the sun. Scroll, and the sun moves.</p>
+    <h1 class="title"><span>daisies</span></h1>
+    <p class="lede">A very small website about your favourite flower. Its name is a worn-down sentence — <i>dæges ēage</i>, the day's eye — because the whole head shuts at dusk and opens again in the morning. It follows you around the room the same way. Scroll, and the sun moves.</p>
     <div class="scroll-cue"><span class="dot"></span> keep going</div>
   </div>
 </header>
@@ -467,41 +506,34 @@
   <div class="entry-head">
     <div class="entry-no">01</div>
     <div>
-      <h2 data-split>The sunflower theory</h2>
-      <p class="sub">One sunflower, one afternoon. Turn the light off and see what happens.</p>
+      <h2 data-split>Ask the daisy when</h2>
+      <p class="sub">The old counting rhyme goes this year, next year, sometime, never. Ask it a question, then take the rays off one at a time. Whatever the last ray lands on is your answer.</p>
     </div>
   </div>
   <div class="hairline"></div>
 
-  <div class="room" id="room">
-    <div class="night" id="night"></div>
-    <div class="stars" id="stars"></div>
-    <div class="daysun" id="daysun"></div>
-    <div class="moon" id="moon">
-      <svg viewBox="0 0 64 64" aria-hidden="true">
-        <circle cx="32" cy="32" r="26" fill="#F7EFD4"/>
-        <circle cx="24" cy="27" r="4.4" fill="#E4D8B4"/>
-        <circle cx="38" cy="38" r="6" fill="#E4D8B4"/>
-        <circle cx="41" cy="22" r="3" fill="#E4D8B4"/>
-      </svg>
-    </div>
-    <svg id="room-art" viewBox="0 0 420 230" role="img" aria-label="A sunflower in an afternoon, then two sunflowers facing each other at night">
-      <g id="th-one">
-        <path d="M210 230 C 207 190, 213 158, 210 126" fill="none" stroke="var(--leaf)" stroke-width="3.4" stroke-linecap="round"/>
-        <g id="th-head-one"></g>
-      </g>
-      <g id="th-two" opacity="0">
-        <path d="M280 230 C 283 190, 277 158, 280 126" fill="none" stroke="var(--leaf)" stroke-width="3.4" stroke-linecap="round"/>
-        <g id="th-head-two"></g>
-      </g>
+  <form class="asker" id="asker">
+    <label class="ask-label" for="questionInput">ask it something</label>
+    <input type="text" id="questionInput" maxlength="80" placeholder="when will I get out of here?" autocomplete="off">
+  </form>
+
+  <div class="oracle" id="oracle">
+    <div class="oracleglow" id="oracleglow"></div>
+    <svg id="oracle-art" viewBox="0 0 300 300" role="img" aria-label="A daisy. Press a ray to pull it off.">
+      <path d="M150 168 C 146 214, 154 258, 150 300" fill="none" stroke="var(--leaf)" stroke-width="4" stroke-linecap="round"/>
+      <path d="M150 236 C 122 228, 102 214, 100 196 C 122 200, 142 216, 150 236" fill="var(--leaf)" opacity=".9"/>
+      <path d="M151 268 C 178 260, 196 246, 198 228 C 176 232, 158 248, 151 268" fill="var(--leaf)" opacity=".72"/>
+      <g id="oracle-rays" fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width="1.1"></g>
+      <circle cx="150" cy="150" r="30" fill="var(--gold)"/>
+      <g id="oracle-dots" fill="#C68C24"></g>
     </svg>
-    <div class="roomglow" id="roomglow"></div>
-    <button class="room-btn" id="roomBtn">turn the light off</button>
+    <p class="verdict" id="verdict"><span id="verdictLine">press a ray to start</span><span class="left" id="versLeft">thirteen on it, four words in the rhyme</span></p>
+    <button class="oracle-btn" id="oracleBtn">pull one for me</button>
   </div>
 
   <blockquote class="theory">
-    <p data-split>They say that when two sunflowers are kept in a dark room, they'll eventually turn to face towards each other, even when there's no light left to follow.</p>
-    <p data-split>As if, in the absence of the sun, they decide to become each other's warmth, each other's quiet sense of belonging, and more importantly, each other's support and comfort.</p>
+    <p data-split>People were settling questions with this flower long before it had a settled English name. You take the rays off one at a time — this year, next year, sometime, never — and whatever you land on at the end is allowed to count as an answer.</p>
+    <p data-split>You could count the rays first and do the arithmetic and know before you started. Nobody counts them first. That is most of the reason people keep playing it.</p>
   </blockquote>
 </section>
 
@@ -510,7 +542,7 @@
     <div class="entry-no">02</div>
     <div>
       <h2 data-split>Grow two of your own</h2>
-      <p class="sub">A packet of sunflower seed and a plot big enough for two. Three steps, in order.</p>
+      <p class="sub">A pinch of daisy seed and a plot big enough for two. Three steps, in order.</p>
     </div>
   </div>
   <div class="hairline"></div>
@@ -527,7 +559,7 @@
     <button class="tool" id="waterBtn" disabled>water the plot</button>
   </div>
 
-  <div class="field" id="field" role="button" tabindex="0" aria-label="Press to sow a sunflower seed">
+  <div class="field" id="field" role="button" tabindex="0" aria-label="Press to sow a daisy seed">
     <div class="horizon"></div>
     <div class="pairglow" id="pairglow"></div>
     <div class="field-hint" id="fieldHint">fallow ground</div>
@@ -557,7 +589,7 @@
 
   <div class="fact">
     <div class="fact-no" id="factNo">01</div>
-    <p class="fact-body" id="factText">Young sunflowers track the sun across the sky every day, then reset overnight to face east again by morning.</p>
+    <p class="fact-body" id="factText">“Daisy” is a worn-down dæges ēage — day's eye — for the way the whole head shuts at night and opens in the morning. Chaucer wrote it out in full: the eye of the day.</p>
   </div>
   <div class="fact-foot">
     <button class="tool" id="factBtn">next note</button>
@@ -565,12 +597,35 @@
   </div>
 </section>
 
-<section class="entry" id="entry-ask">
+<section class="entry" id="entry-chain">
   <div class="entry-head">
     <div class="entry-no">04</div>
     <div>
+      <h2 data-split>Make a chain</h2>
+      <p class="sub">Split a stem with your thumbnail, thread the next one through, keep going. Seven closes it into a crown.</p>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <div class="chain" id="chain" role="button" tabindex="0" aria-label="Press to thread another daisy onto the chain">
+    <div class="oracleglow" id="chainglow"></div>
+    <svg id="chain-art" viewBox="0 0 600 280" aria-hidden="true">
+      <circle id="chain-cord" cx="300" cy="140" r="88" fill="none"
+        stroke="var(--leaf)" stroke-width="3" stroke-linecap="round"
+        transform="rotate(-90 300 140)"/>
+      <g id="chain-links"></g>
+    </svg>
+    <p class="verdict" id="chainSay"><span id="chainLine">press to thread the first one</span><span class="left" id="chainLeft">seven makes a crown</span></p>
+    <button class="oracle-btn" id="chainBtn">thread one for me</button>
+  </div>
+</section>
+
+<section class="entry" id="entry-ask">
+  <div class="entry-head">
+    <div class="entry-no">05</div>
+    <div>
       <h2 data-split>One question</h2>
-    <p class="sub">If you were to give someone a sunflower, what would you hope they understand without you ever saying a word?    </div>
+    <p class="sub">If you were to give someone a daisy, what would you hope they understand without you ever saying a word?    </div>
   </div>
   <div class="hairline"></div>
 
@@ -603,6 +658,33 @@
       <button class="tool" id="againBtn">choose again</button>
     </div>
   </figure>
+  <p class="unlock-cue" id="unlockCue" hidden>● something opened further down</p>
+</section>
+
+<section class="entry" id="entry-more" hidden>
+  <div class="entry-head">
+    <div class="entry-no">06</div>
+    <div>
+      <h2 data-split>One more thing</h2>
+      <p class="sub">Three games, all finished. This was behind them.</p>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <div class="sealed" id="sealed">
+    <svg class="seal" id="sealArt" viewBox="0 0 120 120" aria-hidden="true">
+      <g id="seal-back" fill="var(--daisy-tip)" opacity=".55"></g>
+      <g id="seal-rays" fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width=".9"></g>
+      <circle cx="60" cy="60" r="17" fill="var(--gold)"/>
+      <circle cx="60" cy="60" r="17" fill="none" stroke="var(--gold-deep)" stroke-width="1.4" opacity=".5"/>
+    </svg>
+    <button class="tool" id="openBtn">open it</button>
+    <blockquote class="letter" id="letter" hidden>
+      <p data-letter>You went through the whole book. Most people stop at the first flower and scroll.</p>
+      <p data-letter>Nothing on this page does anything until somebody presses it. The rhyme, the plot, the chain — all of it just sits there being paper otherwise. That is the joke, and it is also the compliment.</p>
+      <p data-letter>Anyway. It opens again every morning, and so do you.</p>
+    </blockquote>
+  </div>
 </section>
 
 <footer>
@@ -649,18 +731,20 @@ function petalRing(group, count, cx, cy, radius, rx, ry, jitter){
     group.appendChild(g);
   }
 }
-petalRing(document.getElementById("petals-back"), 13, 150, 118, 66, 12, 31, 0.09);
-petalRing(document.getElementById("petals-front"), 19, 150, 118, 58, 10.5, 27, 0.07);
+/* A daisy carries far more, far thinner rays than a sunflower does. */
+petalRing(document.getElementById("petals-back"), 23, 150, 118, 60, 6.6, 36, 0.06);
+petalRing(document.getElementById("petals-front"), 29, 150, 118, 54, 5.8, 32, 0.05);
 
+/* The disc is its own crowd of tiny florets, spiralled the same way. */
 const seedsGroup = document.getElementById("seeds");
-const SEED_COUNT = 210;
+const SEED_COUNT = 150;
 for (let i = 0; i < SEED_COUNT; i++){
-  const r = 2.72 * Math.sqrt(i), a = i * GOLD_ANGLE;
+  const r = 2.6 * Math.sqrt(i), a = i * GOLD_ANGLE;
   const s = document.createElementNS(SVG_NS, "circle");
   s.setAttribute("cx", (150 + Math.cos(a) * r).toFixed(2));
   s.setAttribute("cy", (118 + Math.sin(a) * r).toFixed(2));
-  s.setAttribute("r", (0.7 + (i / SEED_COUNT) * 1.5).toFixed(2));
-  s.setAttribute("fill", i % 3 ? "#6A502C" : "#836341");
+  s.setAttribute("r", (0.6 + (i / SEED_COUNT) * 1.2).toFixed(2));
+  s.setAttribute("fill", i % 3 ? "#C68C24" : "#E2AC3E");
   seedsGroup.appendChild(s);
 }
 
@@ -670,9 +754,9 @@ for (let i = 0; i < 21; i++) tickRow.appendChild(document.createElement("i"));
 /* The card's flower: two offset rings of blunt petals, the way a
    printed one would be built up from flat plates of ink. */
 /* Narrow enough that the two rings interleave instead of merging into a ring. */
-const INTRO_PETAL = "M100 100 C 80 90, 66 64, 75 38 C 81 19, 100 24, 100 52 C 100 24, 119 19, 125 38 C 134 64, 120 90, 100 100 Z";
-[["intro-petals-a", [0, 60, 120, 180, 240, 300]],
- ["intro-petals-b", [30, 90, 150, 210, 270, 330]]].forEach(([id, angles]) => {
+const INTRO_PETAL = "M100 100 C 90 80, 87 44, 100 16 C 113 44, 110 80, 100 100 Z";
+[["intro-petals-a", [18, 54, 90, 126, 162, 198, 234, 270, 306, 342]],
+ ["intro-petals-b", [0, 36, 72, 108, 144, 180, 216, 252, 288, 324]]].forEach(([id, angles]) => {
   const g = document.getElementById(id);
   angles.forEach(deg => {
     const p = document.createElementNS(SVG_NS, "path");
@@ -811,22 +895,30 @@ const FLOWERS = {
   daisy: {
     name: "daisy",
     draw(){
-      const n = 13;
-      const ring = Array.from({ length: n }, (_, i) => {
-        const a = (i / n) * Math.PI * 2 + rand(-0.06, 0.06);
-        const px = 50 + Math.cos(a) * 21, py = 46 + Math.sin(a) * 21;
-        return `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${rand(4, 5.4).toFixed(1)}" ry="${rand(12, 15).toFixed(1)}" transform="rotate(${(a * 180 / Math.PI + 90).toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
+      /* Two offset rings of rays and a real spiralled disc — the same build as
+         the big one on the cover, so the plot is not a cheaper drawing. */
+      const ring = (n, radius, rx, ry, jitter) => Array.from({ length: n }, (_, i) => {
+        const a = (i / n) * Math.PI * 2 + rand(-jitter, jitter);
+        const px = 50 + Math.cos(a) * radius, py = 42 + Math.sin(a) * radius;
+        return `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(rx * rand(0.9, 1.1)).toFixed(1)}" ry="${(ry * rand(0.9, 1.12)).toFixed(1)}" transform="rotate(${(a * 180 / Math.PI + 90).toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
       }).join("");
+      let florets = "";
+      for (let i = 0; i < 30; i++){
+        const r = 1.45 * Math.sqrt(i), a = i * GOLD_ANGLE;
+        florets += `<circle cx="${(50 + Math.cos(a) * r).toFixed(1)}" cy="${(42 + Math.sin(a) * r).toFixed(1)}" r="${(0.45 + (i / 30) * 0.5).toFixed(2)}" fill="${i % 3 ? "#C68C24" : "#E2AC3E"}"/>`;
+      }
       return `
-        ${stroke(`M50 60 C ${rand(46, 50).toFixed(0)} 92, ${rand(50, 54).toFixed(0)} 122, 50 150`, "var(--leaf)", 3)}
-        <path d="M50 108 C 38 102, 31 90, 34 80 C 43 88, 48 98, 50 108" fill="var(--leaf)" opacity=".85"/>
-        <g fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width=".8">${ring}</g>
-        <circle cx="50" cy="46" r="9" fill="var(--gold)"/>
-        <circle cx="50" cy="46" r="9" fill="var(--gold-deep)" opacity=".35"/>`;
+        ${stroke(`M50 56 C ${rand(46, 50).toFixed(0)} 92, ${rand(50, 54).toFixed(0)} 124, 50 150`, "var(--leaf)", 3)}
+        <path d="M50 132 C 34 130, 22 122, 21 112 C 33 112, 44 120, 50 132" fill="var(--leaf)" opacity=".9"/>
+        <path d="M50 142 C 65 140, 76 133, 77 124 C 66 124, 55 131, 50 142" fill="var(--leaf)" opacity=".72"/>
+        <g fill="var(--daisy-tip)" opacity=".6">${ring(17, 24, 3.6, 15, 0.06)}</g>
+        <g fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width=".7">${ring(21, 21, 3.1, 13.5, 0.05)}</g>
+        <circle cx="50" cy="42" r="8" fill="var(--gold)"/>
+        <g>${florets}</g>`;
     }
   }
 };
-const FLOWER_KEYS = ["sunflower", "tulip", "lotus", "blossom", "lavender", "daisy"];
+const FLOWER_KEYS = ["daisy", "sunflower", "tulip", "lotus", "blossom", "lavender"];
 
 function flowerSVG(key, height, lean){
   const tilt = lean === undefined ? rand(-4, 4) : lean;
@@ -858,54 +950,21 @@ const PETAL_MARKS = {
   daisy: `<ellipse cx="20" cy="30" rx="5.5" ry="16" fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width=".8"/>`
 };
 
-/* The pair in the dark room. */
-function roomHead(id, cx, cy, restDeg){
-  const head = document.getElementById(id);
-  const back = document.createElementNS(SVG_NS, "g");
-  back.setAttribute("fill", "#8A5F14");
-  back.setAttribute("opacity", ".85");
-  const front = document.createElementNS(SVG_NS, "g");
-  front.setAttribute("fill", "var(--gold)");
-  head.append(back, front);
-  petalRing(back, 11, cx, cy, 33, 5.4, 15.5, 0.08);
-  petalRing(front, 15, cx, cy, 28, 5, 13.5, 0.06);
-
-  const disc = document.createElementNS(SVG_NS, "circle");
-  disc.setAttribute("cx", cx); disc.setAttribute("cy", cy); disc.setAttribute("r", 16.5);
-  disc.setAttribute("fill", "#2B1E0E");
-  head.appendChild(disc);
-
-  const dots = document.createElementNS(SVG_NS, "g");
-  dots.setAttribute("fill", "#6A502C");
-  for (let i = 0; i < 32; i++){
-    const r = 2.6 * Math.sqrt(i), a = i * GOLD_ANGLE;
+/* The daisy you are allowed to take apart. Thirteen rays, evenly spaced and
+   countable, so a game begun on "loves me" also ends on it. */
+const RAY_COUNT = 13;
+const oracleRays = document.getElementById("oracle-rays");
+{
+  const dots = document.getElementById("oracle-dots");
+  for (let i = 0; i < 88; i++){
+    const r = 3 * Math.sqrt(i), a = i * GOLD_ANGLE;
     const d = document.createElementNS(SVG_NS, "circle");
-    d.setAttribute("cx", (cx + Math.cos(a) * r).toFixed(2));
-    d.setAttribute("cy", (cy + Math.sin(a) * r).toFixed(2));
-    d.setAttribute("r", "1.35");
+    d.setAttribute("cx", (150 + Math.cos(a) * r).toFixed(2));
+    d.setAttribute("cy", (150 + Math.sin(a) * r).toFixed(2));
+    d.setAttribute("r", (0.7 + (i / 88) * 0.9).toFixed(2));
+    d.setAttribute("fill", i % 3 ? "#C68C24" : "#E2AC3E");
     dots.appendChild(d);
   }
-  head.appendChild(dots);
-
-  head.style.transformBox = "fill-box";
-  head.style.transformOrigin = "50% 50%";
-  head.style.transform = `rotate(${restDeg}deg)`;
-  return head;
-}
-const headOne = roomHead("th-head-one", 210, 108, 0);
-const headTwo = roomHead("th-head-two", 280, 108, 0);
-
-const starsEl = document.getElementById("stars");
-const starDots = [];
-for (let i = 0; i < 34; i++){
-  const s = document.createElement("i");
-  s.style.left = rand(2, 98).toFixed(1) + "%";
-  s.style.top = rand(3, 62).toFixed(1) + "%";
-  const size = rand(1.4, 3).toFixed(1);
-  s.style.width = size + "px";
-  s.style.height = size + "px";
-  starsEl.appendChild(s);
-  starDots.push(s);
 }
 
 /* Petals falling through the page. Scattered by CSS so the layer still
@@ -949,11 +1008,11 @@ function buildPicker(el, initial, onPick){
   };
 }
 
-/* The plot only ever takes sunflower seed. */
-const sowing = "sunflower";
+/* The plot only ever takes daisy seed. */
+const sowing = "daisy";
 
 const askPickerEl = document.getElementById("askPicker");
-let chosen = "sunflower";
+let chosen = "daisy";
 const selectChosen = buildPicker(askPickerEl, chosen, k => { chosen = k; });
 
 /* ---------------------------------------------------------------
@@ -1076,7 +1135,7 @@ function bloom(plant){
   } else {
     plant.wrap.tabIndex = 0;
     plant.wrap.setAttribute("role", "button");
-    plant.wrap.setAttribute("aria-label", "Name this sunflower");
+    plant.wrap.setAttribute("aria-label", "Name this daisy");
     /* The plant owns its own gestures. Without stopPropagation these would
        bubble to the plot and sow a fresh seed on top of the flower. */
     plant.wrap.addEventListener("click", e => { e.stopPropagation(); openNamer(plant); });
@@ -1126,7 +1185,8 @@ function applyName(){
     first.wrap.classList.remove("wilted");
     onRevive(first);
     onPair(plants[0], plants[1]);
-    note("They have turned to face each other.", true);
+    note("They have turned in, and opened on the same hour.", true);
+    checkUnlock();
   } else {
     paired = false;
     first.wrap.classList.add("wilted");
@@ -1151,14 +1211,14 @@ namer.addEventListener("submit", e => { e.preventDefault(); applyName(); });
    02 · facts
 ----------------------------------------------------------------*/
 const facts = [
-  "Young sunflowers track the sun across the sky every day, then reset overnight to face east again by morning.",
-  "A sunflower head is not one flower — it is up to 2,000 tiny flowers packed into a single disc.",
-  "The seeds spiral in Fibonacci counts: usually 34 curves one way, 55 the other. The ones above you are set the same way.",
-  "Sunflowers were planted around Chernobyl and Fukushima because they draw toxins up out of contaminated soil.",
-  "The tallest sunflower ever grown reached 9.17 metres — roughly a three-storey building.",
-  "Mature sunflowers stop tracking and permanently face east. It keeps them warmer, and bees prefer a warm flower.",
-  "Vincent van Gogh painted sunflowers eleven times. He considered them his signature flower.",
-  "Oil, seeds, stalks, husks — almost nothing about the plant goes to waste."
+  "“Daisy” is a worn-down dæges ēage — day's eye — for the way the whole head shuts at night and opens in the morning. Chaucer wrote it out in full: the eye of the day.",
+  "A daisy is not one flower. The white ring and the yellow middle are hundreds of separate florets, close enough together that a bee treats the crowd as a single bloom.",
+  "The white rays are usually tipped red underneath, so a daisy about to open looks pink from above and white from the side.",
+  "Bellis perennis is Latin for pretty and everlasting. It flowers March to September and survives the mower because it creeps flat along the ground, under the blades.",
+  "It used to be called bruisewort. The leaves were crushed onto bruises and grazes, and the young leaves, buds and petals are all still edible.",
+  "Its family is one of the largest on Earth: over 32,000 species in more than 1,900 genera — roughly one flowering plant in ten is some kind of daisy.",
+  "A single oxeye daisy can set 26,000 seeds, and some stay viable in the soil for nearly forty years, which is a long time to wait in the dark.",
+  "In 1961 a computer at Bell Labs was taught to sing, and the song it sang was “Daisy Bell”. Arthur C. Clarke was there to hear it, which is why HAL sings it while being switched off."
 ];
 let factIndex = 0;
 const factText = document.getElementById("factText");
@@ -1179,25 +1239,225 @@ let nextFact = () => {
 };
 
 /* ---------------------------------------------------------------
-   03 · the room
+   03 · loves me, loves me not
 ----------------------------------------------------------------*/
-const room = document.getElementById("room");
-const roomBtn = document.getElementById("roomBtn");
-let isNight = false;
-let toggleNight = () => {
-  isNight = !isNight;
-  room.classList.toggle("is-night", isNight);
-  document.getElementById("night").style.opacity = isNight ? "1" : "0";
-  document.getElementById("moon").style.opacity = isNight ? "1" : "0";
-  document.getElementById("daysun").style.opacity = isNight ? "0" : "1";
-  document.getElementById("roomglow").style.opacity = isNight ? "1" : "0";
-  document.getElementById("th-two").style.opacity = isNight ? "1" : "0";
-  starDots.forEach(s => { s.style.opacity = isNight ? "0.85" : "0"; });
-  headOne.style.transform = `rotate(${isNight ? 21 : 0}deg)`;
-  headTwo.style.transform = `rotate(${isNight ? -21 : 0}deg)`;
-  document.getElementById("th-one").style.transform = isNight ? "translateX(-70px)" : "translateX(0px)";
-  roomBtn.textContent = isNight ? "bring the sun back" : "turn the light off";
-};
+const oracle = document.getElementById("oracle");
+const oracleGlow = document.getElementById("oracleglow");
+const oracleBtn = document.getElementById("oracleBtn");
+const verdict = document.getElementById("verdict");
+const verdictLine = document.getElementById("verdictLine");
+const versLeft = document.getElementById("versLeft");
+const questionInput = document.getElementById("questionInput");
+/* Nothing to submit — the rays are the submit button. */
+document.getElementById("asker").addEventListener("submit", e => e.preventDefault());
+
+const RHYME = ["this year", "next year", "sometime", "never"];
+let rayEls = [];
+let pulled = 0;
+let finished = false;
+
+/* Replaced by the Motion branch, which lets the rays fall instead. */
+let onPull = el => { el.style.opacity = "0"; };
+let onSay = () => {};
+let onFinish = () => {};
+let onRegrow = () => {};
+let onBuild = () => {};
+
+function buildRays(){
+  oracleRays.innerHTML = "";
+  petalRing(oracleRays, RAY_COUNT, 150, 150, 62, 9, 40, 0);
+  rayEls = [...oracleRays.querySelectorAll("ellipse")];
+  rayEls.forEach(r => {
+    r.setAttribute("tabindex", "0");
+    r.setAttribute("role", "button");
+    r.setAttribute("aria-label", "Pull this ray off");
+  });
+  onBuild();
+}
+buildRays();
+
+function say(line, left, warm){
+  verdictLine.textContent = line;
+  versLeft.textContent = left;
+  verdict.classList.toggle("warm", !!warm);
+  onSay();
+}
+
+function pull(el){
+  if (finished || !el || el.dataset.gone) return;
+  el.dataset.gone = "1";
+  el.setAttribute("tabindex", "-1");
+  el.style.pointerEvents = "none";
+  pulled++;
+  /* Thirteen rays against four words lands the last one back on the first. */
+  const word = RHYME[(pulled - 1) % RHYME.length];
+  const left = RAY_COUNT - pulled;
+  onPull(el);
+
+  if (left === 0){
+    finished = true;
+    oracle.classList.add("is-done");
+    oracleBtn.textContent = "ask it again";
+    const q = questionInput.value.trim();
+    say("this year.", q ? `“${q}” — this year` : "thirteen rays against four words: it was never going to say anything else", true);
+    onFinish();
+  } else {
+    say(word, left === 1 ? "one ray left" : `${left} rays left`, word === "this year");
+  }
+}
+
+function regrow(){
+  finished = false;
+  pulled = 0;
+  oracle.classList.remove("is-done");
+  oracleBtn.textContent = "pull one for me";
+  buildRays();
+  say("press a ray to start", "thirteen on it, four words in the rhyme", false);
+  onRegrow();
+}
+
+function pullAny(){
+  if (finished){ regrow(); return; }
+  const live = rayEls.filter(r => !r.dataset.gone);
+  pull(live[Math.floor(Math.random() * live.length)]);
+}
+
+oracleRays.addEventListener("click", e => {
+  const el = e.target.closest("ellipse");
+  if (el) pull(el);
+});
+oracleRays.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const el = e.target.closest("ellipse");
+  if (!el) return;
+  e.preventDefault();
+  pull(el);
+});
+
+/* ---------------------------------------------------------------
+   04 · the chain
+----------------------------------------------------------------*/
+const CHAIN_MAX = 7;
+const CH_CX = 300, CH_CY = 140, CH_R = 88;
+const CORD = 2 * Math.PI * CH_R;
+const chainEl = document.getElementById("chain");
+const chainLinks = document.getElementById("chain-links");
+const chainCord = document.getElementById("chain-cord");
+const chainBtn = document.getElementById("chainBtn");
+const chainSay = document.getElementById("chainSay");
+const chainLine = document.getElementById("chainLine");
+const chainLeft = document.getElementById("chainLeft");
+const chainGlow = document.getElementById("chainglow");
+
+let chainCount = 0;
+let chainDone = false;
+const chainHeads = [];
+let onThread = () => {};
+let onCrown = () => {};
+let onChainReset = () => {};
+
+const cordTo = n => { chainCord.style.strokeDasharray = `${(CORD * n / CHAIN_MAX).toFixed(1)} ${CORD.toFixed(1)}`; };
+cordTo(0);
+
+function chainHead(i){
+  const a = (i / CHAIN_MAX) * Math.PI * 2 - Math.PI / 2;
+  const x = CH_CX + Math.cos(a) * CH_R, y = CH_CY + Math.sin(a) * CH_R;
+  const g = document.createElementNS(SVG_NS, "g");
+  const back = document.createElementNS(SVG_NS, "g");
+  back.setAttribute("fill", "var(--daisy-tip)");
+  back.setAttribute("opacity", ".6");
+  const front = document.createElementNS(SVG_NS, "g");
+  front.setAttribute("fill", "var(--daisy)");
+  front.setAttribute("stroke", "var(--daisy-edge)");
+  front.setAttribute("stroke-width", ".6");
+  g.append(back, front);
+  petalRing(back, 9, x, y, 13, 2.6, 8, 0.06);
+  petalRing(front, 11, x, y, 11, 2.2, 6.6, 0.05);
+  const disc = document.createElementNS(SVG_NS, "circle");
+  disc.setAttribute("cx", x.toFixed(1));
+  disc.setAttribute("cy", y.toFixed(1));
+  disc.setAttribute("r", "4.6");
+  disc.setAttribute("fill", "var(--gold)");
+  g.appendChild(disc);
+  chainLinks.appendChild(g);
+  chainHeads.push(g);
+  return g;
+}
+
+function thread(){
+  if (chainDone) return;
+  const g = chainHead(chainCount);
+  chainCount++;
+  cordTo(chainCount);
+  onThread(g);
+
+  if (chainCount === CHAIN_MAX){
+    chainDone = true;
+    chainBtn.textContent = "pull it apart";
+    chainLine.textContent = "a crown.";
+    chainLeft.textContent = "seven daisies, and nothing holding it together but stems";
+    chainSay.classList.add("warm");
+    onCrown();
+    checkUnlock();
+  } else {
+    chainLine.textContent = chainCount === 1 ? "one threaded" : `${chainCount} threaded`;
+    chainLeft.textContent = `${CHAIN_MAX - chainCount} to go`;
+    chainSay.classList.remove("warm");
+  }
+}
+
+function chainReset(){
+  chainDone = false;
+  chainCount = 0;
+  chainHeads.length = 0;
+  chainLinks.innerHTML = "";
+  cordTo(0);
+  chainBtn.textContent = "thread one for me";
+  chainLine.textContent = "press to thread the first one";
+  chainLeft.textContent = "seven makes a crown";
+  chainSay.classList.remove("warm");
+  onChainReset();
+}
+
+/* ---------------------------------------------------------------
+   06 · what the three games were for
+----------------------------------------------------------------*/
+const moreSection = document.getElementById("entry-more");
+const unlockCue = document.getElementById("unlockCue");
+const openBtn = document.getElementById("openBtn");
+const letter = document.getElementById("letter");
+let unlocked = false;
+let onUnlock = () => {};
+let onOpen = () => {};
+let daisyRain = () => {};
+
+petalRing(document.getElementById("seal-back"), 13, 60, 60, 37, 5, 19, 0.05);
+petalRing(document.getElementById("seal-rays"), 15, 60, 60, 34, 4.4, 18, 0.04);
+
+/* Only opens for someone who finished the rhyme, filled the plot and closed
+   the chain. Nothing hints at it until all three are done. */
+function checkUnlock(){
+  if (unlocked || !finished || !paired || !chainDone) return;
+  unlocked = true;
+  moreSection.hidden = false;
+  onUnlock();
+}
+
+function openLetter(){
+  if (!letter.hidden) return;
+  letter.hidden = false;
+  openBtn.disabled = true;
+  openBtn.textContent = "opened";
+  onOpen();
+}
+
+/* Type the flower's name anywhere on the page. */
+let typedKeys = "";
+addEventListener("keydown", e => {
+  if (!e.key || e.key.length !== 1) return;
+  typedKeys = (typedKeys + e.key.toLowerCase()).slice(-6);
+  if (typedKeys.endsWith("daisy")){ typedKeys = ""; daisyRain(30); }
+});
 
 /* ---------------------------------------------------------------
    04 · one question, then give it away
@@ -1292,7 +1552,17 @@ if (!M){
   });
   waterBtn.addEventListener("click", () => doWater());
   factBtn.addEventListener("click", () => nextFact());
-  roomBtn.addEventListener("click", () => toggleNight());
+  oracleBtn.addEventListener("click", () => pullAny());
+  chainEl.addEventListener("click", e => {
+    if (e.target.closest("#chainBtn")) return;
+    thread();
+  });
+  chainEl.addEventListener("keydown", e => {
+    if (e.target !== chainEl) return;
+    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); thread(); }
+  });
+  chainBtn.addEventListener("click", () => { chainDone ? chainReset() : thread(); });
+  openBtn.addEventListener("click", () => openLetter());
   askPickerEl.addEventListener("click", e => {
     const c = e.target.closest(".chip");
     if (c) selectChosen(c.dataset.flower);
@@ -1337,7 +1607,7 @@ if (!M){
     };
   });
 
-  /* --- 2. Heliotropism: cursor + sun position + idle sway, composed --- */
+  /* --- 2. The head follows the light: cursor + sun position + idle sway --- */
   const head = document.getElementById("flower-head");
   const heroSvg = document.getElementById("hero-flower");
 
@@ -1564,8 +1834,8 @@ if (!M){
       { duration: 0.6, delay: 1.5, ease: "easeOut" });
   };
 
-  /* A sunflower does not give up all at once. The head dips, holds, then goes
-     over the rest of the way, and a couple of petals let go on the way down. */
+  /* A daisy does not give up all at once. The head dips, holds, then goes
+     over the rest of the way, and a couple of rays let go on the way down. */
   onWilt = plant => {
     windOff(plant);
     animate(pairGlow, { opacity: 0 }, { duration: 0.4 });
@@ -1647,85 +1917,157 @@ if (!M){
   };
   splitWords(factText);
 
-  /* --- 8. Afternoon into night --- */
-  const nightOpacity = motionValue(0);
-  const moonOpacity = motionValue(0);
-  const daysunOpacity = motionValue(1);
+  /* --- 8. Loves me, loves me not --- */
   const glowOpacity = motionValue(0);
-  const twoOpacity = motionValue(0);
-  const oneShift = motionValue(0);
-  const turnOne = motionValue(0), turnTwo = motionValue(0);
-  const roomSway = motionValue(0);
-  const smoothOne = springValue(turnOne, { stiffness: 44, damping: 15, mass: 1.2 });
-  const smoothTwo = springValue(turnTwo, { stiffness: 44, damping: 15, mass: 1.2 });
+  styleEffect(oracleGlow, { opacity: glowOpacity });
 
-  styleEffect(document.getElementById("night"), { opacity: nightOpacity });
-  styleEffect(document.getElementById("moon"), { opacity: moonOpacity });
-  styleEffect(document.getElementById("daysun"), { opacity: daysunOpacity });
-  styleEffect(document.getElementById("roomglow"), { opacity: glowOpacity });
-  svgEffect(document.getElementById("th-two"), { opacity: twoOpacity });
-  svgEffect(document.getElementById("th-one"), { x: oneShift });
-  /* One sway, mirrored, so the pair breathe against each other. */
-  svgEffect(headOne, { rotate: transformValue(() => smoothOne.get() + roomSway.get()) });
-  svgEffect(headTwo, { rotate: transformValue(() => smoothTwo.get() - roomSway.get()) });
-  animate(roomSway, [-1.4, 1.4], { duration: 5.2, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
+  /* The head breathes, and flinches a little each time a ray comes off. */
+  const oracleSway = motionValue(0);
+  const kick = motionValue(0);
+  const smoothKick = springValue(kick, { stiffness: 260, damping: 11, mass: 0.8 });
+  svgEffect("#oracle-art", { rotate: transformValue(() => oracleSway.get() + smoothKick.get()) });
+  animate(oracleSway, [-1.5, 1.5], { duration: 5.4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
 
-  let turning = false;
-  toggleNight = async () => {
-    if (turning) return;
-    turning = true;
-    isNight = !isNight;
-    room.classList.toggle("is-night", isNight);
-    roomBtn.textContent = isNight ? "bring the sun back" : "turn the light off";
+  const growRays = (startDelay = 0) =>
+    animate("#oracle-rays ellipse",
+      { transform: ["scale(0) rotate(-16deg)", "scale(1) rotate(0deg)"] },
+      { delay: stagger(0.045, { startDelay, from: "center" }), type: "spring", bounce: 0.45, visualDuration: 0.5 });
 
-    if (isNight){
-      animate(nightOpacity, 1, { duration: 1, ease: "easeInOut" });
-      animate(daysunOpacity, 0, { duration: 0.7, ease: "easeIn" });
-      animate("#daysun", { transform: ["translateY(0px)", "translateY(70px)"] }, { duration: 1.1, ease: "easeIn" });
-      animate(starDots, { opacity: [0, 0.9] },
-        { duration: 0.8, delay: stagger(0.02, { startDelay: 0.35, from: "center" }), ease: "easeOut" });
-      animate(moonOpacity, 1, { duration: 0.8, delay: 0.4 });
-      animate("#moon", { transform: ["translateY(60px) scale(0.7)", "translateY(0px) scale(1)"] },
-        { type: "spring", bounce: 0.3, visualDuration: 0.9, delay: 0.4 });
+  inView("#oracle", () => growRays(0.1), { amount: 0.3 });
 
-      await new Promise(r => setTimeout(r, 700));
-      /* The one that was alone makes room for the other. */
-      animate(oneShift, -70, { type: "spring", bounce: 0.24, visualDuration: 0.8 });
-      await new Promise(r => setTimeout(r, 260));
-      animate(twoOpacity, 1, { duration: 0.5 });
-      animate("#th-two", { transform: ["translateY(46px) scale(0.86)", "translateY(0px) scale(1)"] },
-        { type: "spring", bounce: 0.34, visualDuration: 0.85 });
+  /* Re-registered on every regrow, because the rays are new elements. */
+  onBuild = () => {
+    hover("#oracle-rays ellipse", el => {
+      const a = animate(el, { scale: 1.07 }, { type: "spring", stiffness: 420, damping: 24 });
+      return () => { a.stop(); animate(el, { scale: 1 }, { type: "spring", stiffness: 420, damping: 28 }); };
+    });
+  };
+  onBuild();
 
-      await new Promise(r => setTimeout(r, 520));
-      turnOne.set(21);
-      turnTwo.set(-21);
-      animate(glowOpacity, 1, { duration: 1.4, delay: 0.35, ease: "easeOut" });
-      starDots.forEach(s => animate(s,
-        { opacity: [0.9, rand(0.3, 0.6), 0.9] },
-        { duration: rand(2.4, 5), repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: rand(0, 2) }));
-    } else {
-      turnOne.set(0); turnTwo.set(0);
-      animate(glowOpacity, 0, { duration: 0.5 });
-      animate(twoOpacity, 0, { duration: 0.5, delay: 0.15 });
-      animate(oneShift, 0, { type: "spring", bounce: 0.2, visualDuration: 0.8, delay: 0.2 });
-      animate(moonOpacity, 0, { duration: 0.6 });
-      animate("#moon", { transform: ["translateY(0px) scale(1)", "translateY(60px) scale(0.7)"] }, { duration: 0.7, ease: "easeIn" });
-      animate(starDots, { opacity: 0 }, { duration: 0.5, delay: stagger(0.008) });
-      animate(nightOpacity, 0, { duration: 0.9, delay: 0.2, ease: "easeInOut" });
-      animate(daysunOpacity, 1, { duration: 0.7, delay: 0.4 });
-      animate("#daysun", { transform: ["translateY(70px)", "translateY(0px)"] },
-        { type: "spring", bounce: 0.24, visualDuration: 0.9, delay: 0.4 });
-      await new Promise(r => setTimeout(r, 900));
-    }
-    turning = false;
+  onPull = el => {
+    kick.set(rand(-4.5, 4.5));
+    setTimeout(() => kick.set(0), 150);
+    /* Off the head, turning over on the way down, gone before it lands. */
+    animate(el,
+      { x: rand(-60, 60), y: rand(90, 160), rotate: rand(-170, 170), scale: 0.94, opacity: [1, 1, 0] },
+      { duration: rand(1.3, 2), ease: [0.32, 0.08, 0.5, 1] });
   };
 
-  press(roomBtn, el => {
+  onSay = () => {
+    animate(verdict, { opacity: [0, 1], transform: ["translateY(6px)", "translateY(0px)"] },
+      { duration: 0.4, ease: "easeOut" });
+  };
+
+  onFinish = () => {
+    animate(glowOpacity, 1, { duration: 1.3, delay: 0.2, ease: "easeOut" });
+    animate("#oracle-dots circle", { scale: [1, 1.4, 1] },
+      { duration: 0.7, delay: stagger(0.006, { startDelay: 0.15, from: "center" }), ease: "easeOut" });
+    animate(verdict, { scale: [0.94, 1] }, { type: "spring", bounce: 0.4, visualDuration: 0.55 });
+  };
+
+  onRegrow = () => {
+    animate(glowOpacity, 0, { duration: 0.4 });
+    growRays(0);
+  };
+
+  press(oracleBtn, el => {
     animate(el, { scale: 0.95 }, { duration: 0.12, ease: "easeOut" });
     return (e, info) => {
       animate(el, { scale: 1 }, { type: "spring", bounce: 0.4, visualDuration: 0.3 });
-      if (info.success) toggleNight();
+      if (info.success) pullAny();
     };
+  });
+
+  /* --- 8b. The chain, and a rain of petals for anyone who finds it --- */
+  daisyRain = (n = 20) => {
+    for (let i = 0; i < n; i++){
+      const mark = document.createElement("i");
+      const w = rand(14, 32);
+      mark.style.cssText =
+        `position:fixed;z-index:6;pointer-events:none;top:-10vh;left:${rand(1, 97).toFixed(1)}%;` +
+        `width:${w.toFixed(0)}px;height:${(w * 1.5).toFixed(0)}px`;
+      mark.innerHTML = `<svg viewBox="0 0 40 60" style="width:100%;height:100%;display:block">${PETAL_MARKS.daisy}</svg>`;
+      document.body.appendChild(mark);
+      animate(mark,
+        { y: [0, innerHeight * 1.25], x: [0, rand(-90, 90)], rotate: [0, rand(-280, 280)], opacity: [0.95, 0.95, 0] },
+        { duration: rand(2.4, 4.4), delay: rand(0, 0.9), ease: "easeIn" }).then(() => mark.remove());
+    }
+  };
+
+  const chainGlowV = motionValue(0);
+  styleEffect(chainGlow, { opacity: chainGlowV });
+  let crownSpin = null;
+
+  onThread = g => {
+    animate(g, { transform: ["scale(0) rotate(-45deg)", "scale(1) rotate(0deg)"] },
+      { type: "spring", bounce: 0.5, visualDuration: 0.5 });
+    animate(chainSay, { opacity: [0, 1], transform: ["translateY(5px)", "translateY(0px)"] },
+      { duration: 0.35, ease: "easeOut" });
+  };
+  onCrown = () => {
+    animate(chainGlowV, 1, { duration: 1.3, ease: "easeOut" });
+    animate(chainHeads, { scale: [1, 1.16, 1] },
+      { duration: 0.6, delay: stagger(0.055), ease: "easeOut" });
+    animate(chainSay, { scale: [0.94, 1] }, { type: "spring", bounce: 0.4, visualDuration: 0.5 });
+    /* It turns for as long as it stays whole. */
+    crownSpin = animate("#chain-art", { rotate: [0, 360] },
+      { duration: 140, repeat: Infinity, ease: "linear" });
+    daisyRain(12);
+  };
+  onChainReset = () => {
+    if (crownSpin){ crownSpin.stop(); crownSpin = null; }
+    animate(chainGlowV, 0, { duration: 0.4 });
+    animate("#chain-art", { rotate: 0 }, { type: "spring", bounce: 0.2, visualDuration: 0.7 });
+  };
+
+  press(chainEl, (el, startEvent) => {
+    const onBtn = startEvent && startEvent.target && startEvent.target.closest
+      && startEvent.target.closest("#chainBtn");
+    return (e, info) => { if (info.success && !onBtn) thread(); };
+  });
+  press(chainBtn, el => {
+    animate(el, { scale: 0.95 }, { duration: 0.12, ease: "easeOut" });
+    return (e, info) => {
+      animate(el, { scale: 1 }, { type: "spring", bounce: 0.4, visualDuration: 0.3 });
+      if (!info.success) return;
+      chainDone ? chainReset() : thread();
+    };
+  });
+
+  /* --- 8c. The one that only opens when all three are done --- */
+  onUnlock = () => {
+    unlockCue.hidden = false;
+    animate(unlockCue, { opacity: [0, 1], transform: ["translateY(8px)", "translateY(0px)"] },
+      { duration: 0.7, ease: "easeOut" });
+    animate("#sealArt", { opacity: [0, 1], scale: [0.5, 1] },
+      { type: "spring", bounce: 0.45, visualDuration: 0.8 });
+    animate("#sealArt", { rotate: [0, 360] }, { duration: 70, repeat: Infinity, ease: "linear", delay: 0.8 });
+    animate("#entry-more", { opacity: [0, 1], transform: ["translateY(20px)", "translateY(0px)"] },
+      { duration: 0.8, ease: "easeOut" });
+  };
+  onOpen = () => {
+    const words = [...letter.querySelectorAll("p[data-letter]")].flatMap(p => splitWords(p));
+    animate(words, { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] },
+      { duration: 0.5, delay: stagger(0.028), ease: "easeOut" });
+    daisyRain(34);
+  };
+  press(openBtn, el => {
+    animate(el, { scale: 0.95 }, { duration: 0.12, ease: "easeOut" });
+    return (e, info) => {
+      animate(el, { scale: 1 }, { type: "spring", bounce: 0.4, visualDuration: 0.3 });
+      if (info.success) openLetter();
+    };
+  });
+
+  /* The cover flower does something if you press it. */
+  press("#hero-flower", () => (e, info) => {
+    if (!info.success) return;
+    animate("#petals-front ellipse",
+      { transform: ["scale(1)", "scale(1.16) rotate(4deg)", "scale(1)"] },
+      { duration: 0.75, delay: stagger(0.012, { from: "center" }), ease: "easeOut" });
+    animate("#seeds circle", { scale: [1, 1.3, 1] },
+      { duration: 0.6, delay: stagger(0.003), ease: "easeOut" });
+    daisyRain(10);
   });
 
   /* --- 9. The question and the gift --- */
