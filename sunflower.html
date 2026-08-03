@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hi, Diya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,ital,wght@6..72,0,300..500;6..72,1,300..400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE1;
+    --paper-deep:#E9E2D0;
+    --ink:#1E1A13;
+    --sepia:#6B5B43;
+    --faint:#9C9080;
+    --gold:#DFA327;
+    --gold-deep:#A9761B;
+    --leaf:#6B7A4F;
+    --seed:#3B2A15;
+    --rule:#CFC5AE;
+
+    /* the rest of the garden */
+    --tulip:#D26A85;      --tulip-deep:#B94E6B;
+    --lotus:#EEB2C6;      --lotus-deep:#DB8FA9;
+    --blossom:#F3C6D4;    --blossom-deep:#E29DB4;
+    --lavender:#9083BB;   --lavender-deep:#75669F;
+    --daisy:#FFFCF4;      --daisy-edge:#DFD4BC;
+
+    /* the greeting card up front */
+    --card:#F2E5C6;
+    --card-dot:#E3D2AC;
+    --card-pink:#F0B4BE;
+    --card-red:#E04A2F;
+    --card-red-deep:#C33A22;
+    --card-gold:#EFB335;
+    --card-ink:#1A1A18;
+
+    --spring-snap:750ms linear(0, 0.0898, 0.2906, 0.5217, 0.7321, 0.8962, 1.0069, 1.0689, 1.093, 1.0915, 1.0756, 1.0541, 1.0329, 1.0155, 1.0029, 0.9953, 0.9917, 0.9911, 0.9921, 0.994, 0.9961, 0.9979, 0.9993, 1.0002, 1);
+    --spring-soft:1000ms linear(0, 0.0319, 0.1092, 0.2105, 0.3209, 0.4305, 0.5332, 0.6253, 0.7055, 0.7733, 0.8294, 0.8747, 0.9107, 0.9386, 0.9597, 0.9754, 0.9868, 0.9947, 1, 1.0033, 1.0052, 1.0061, 1.0063, 1.006, 1.0055, 1.0049, 1.0042, 1.0035, 1.0029, 1.0023, 1.0018, 1.0014, 1);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Newsreader',Georgia,serif;
+    font-optical-sizing:auto;font-weight:350;
+    background:var(--paper);color:var(--ink);
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,.display{
+    font-family:'Bricolage Grotesque','Segoe UI',sans-serif;
+    font-variation-settings:'wdth' 92;
+    font-weight:800;letter-spacing:-.03em;line-height:.95;
+  }
+
+  /* ---------- page furniture ---------- */
+  .sun{
+    position:fixed;top:0;left:50%;width:92vmax;height:92vmax;margin:-46vmax 0 0 -46vmax;
+    background:radial-gradient(circle closest-side,
+      rgba(255,214,130,.55) 0%, rgba(250,203,116,.26) 42%, rgba(245,196,110,0) 72%);
+    pointer-events:none;z-index:0;will-change:transform;
+  }
+  .grain{
+    position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  }
+  .drift{position:fixed;inset:-12% 0;z-index:1;pointer-events:none;overflow:hidden}
+  .drift i{position:absolute;display:block;opacity:.2;will-change:transform}
+  .drift svg{display:block;width:100%;height:100%}
+  .sheet{position:relative;z-index:2}
+
+  .rail{position:fixed;left:2.2rem;top:0;bottom:0;width:1px;z-index:3;display:none;opacity:0}
+  .rail::before{content:"";position:absolute;inset:0;background:var(--rule);opacity:.55}
+  .rail-stem{position:absolute;inset:0;background:var(--leaf);transform:scaleY(0);transform-origin:top center}
+  .rail-label{
+    position:absolute;left:1rem;top:50%;transform-origin:left center;
+    transform:translateY(-50%) rotate(90deg);
+    font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--faint);white-space:nowrap;
+  }
+  @media(min-width:900px){.rail{display:block}}
+
+  .shell{max-width:64rem;margin:0 auto;padding:0 1.4rem}
+  @media(min-width:900px){.shell{padding:0 3rem 0 6rem}}
+
+  .mono{
+    font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--gold-deep);font-weight:500;
+  }
+  .mono.dim{color:var(--faint)}
+
+  /* ---------- 00 · the card ---------- */
+  .intro{
+    position:relative;z-index:4;min-height:100svh;overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:3rem 1.4rem;text-align:center;
+    background:
+      radial-gradient(var(--card-dot) 1.1px, transparent 1.2px) 0 0/14px 14px,
+      var(--card);
+  }
+  .intro-shape{position:absolute;pointer-events:none}
+  .swoosh{
+    left:-26%;top:7%;width:76%;height:min(19vh,150px);
+    background:var(--card-pink);border-radius:0 999px 999px 0;
+    transform:rotate(-9deg);transform-origin:left center;
+  }
+  .slab{
+    right:-14%;bottom:2%;width:62%;height:min(24vh,180px);
+    background:var(--card-gold);transform:rotate(6deg);
+  }
+  .intro-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:1.6rem}
+  #intro-flower{width:min(210px,44vw);height:auto;display:block;will-change:transform}
+  .hi{
+    font-size:clamp(2.8rem,12vw,6rem);color:var(--card-ink);text-transform:lowercase;
+    font-variation-settings:'wdth' 88;
+  }
+  .hi span{display:inline-block;will-change:transform,opacity}
+  .intro-note{
+    font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.28em;
+    text-transform:uppercase;color:#8A6A3C;
+  }
+  .intro-go{
+    position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);z-index:2;
+    display:inline-flex;align-items:center;gap:.6rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--card-ink);
+    background:none;border:0;border-bottom:2px solid var(--card-ink);
+    padding:.45rem .2rem;cursor:pointer;will-change:transform;
+  }
+  .intro-go:focus-visible{outline:2px solid var(--card-red);outline-offset:5px}
+  .intro-go .arrow{display:inline-block;will-change:transform}
+
+  /* ---------- hero ---------- */
+  .plate{
+    position:relative;min-height:100svh;display:grid;align-items:center;
+    grid-template-columns:1fr;padding:6rem 0 4rem;
+  }
+  @media(min-width:820px){
+    .plate{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:2rem;padding:4rem 0}
+  }
+  .plate-art{order:-1;justify-self:center;position:relative;margin-bottom:3rem}
+  @media(min-width:820px){.plate-art{order:2;justify-self:end;margin:0 -4vw 0 0}}
+  #hero-flower{width:min(400px,78vw);height:auto;display:block;overflow:visible}
+  .tick-row{position:absolute;left:0;right:0;bottom:-1.6rem;height:10px;display:flex;justify-content:space-between;opacity:.5}
+  .tick-row i{display:block;width:1px;height:5px;background:var(--rule)}
+  .tick-row i:nth-child(5n+1){height:10px}
+
+  .plate-text{max-width:26rem}
+  .eyebrow{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.6rem}
+  .eyebrow .hair{flex:1;height:1px;background:var(--rule);transform-origin:left center}
+  h1.title{font-size:clamp(2.9rem,10vw,5.2rem);margin:0 0 1.4rem;overflow:hidden;padding-bottom:.08em}
+  h1.title span{display:block;color:var(--gold-deep)}
+  .lede{font-size:1.05rem;line-height:1.62;color:var(--sepia);max-width:30ch;font-weight:350}
+  .lede i{font-style:italic;color:var(--ink)}
+  .scroll-cue{
+    margin-top:2.6rem;display:inline-flex;align-items:center;gap:.6rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--faint);
+  }
+  .scroll-cue .dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+
+  /* ---------- sections ---------- */
+  .entry{padding:7rem 0 5rem;position:relative}
+  .entry-head{display:grid;gap:.4rem;grid-template-columns:1fr;margin-bottom:2.6rem}
+  @media(min-width:720px){.entry-head{grid-template-columns:4.5rem 1fr;gap:0 1.6rem;align-items:start}}
+  .entry-no{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.4rem;line-height:.9;color:var(--rule)}
+  .entry h2{font-size:clamp(1.7rem,4.4vw,2.5rem);margin-bottom:.7rem}
+  .entry .sub{color:var(--sepia);font-size:1rem;line-height:1.6;max-width:38ch}
+  .hairline{height:1px;background:var(--rule);transform-origin:left center;margin-bottom:2.2rem}
+
+  /* ---------- 01 · the plot ---------- */
+  .picker{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;margin-bottom:1rem}
+  .chip{
+    display:inline-flex;align-items:center;gap:.4rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint);
+    background:none;border:0;border-bottom:1px solid transparent;
+    padding:.3rem .1rem;cursor:pointer;will-change:transform;
+  }
+  .chip svg{width:13px;height:20px;display:block}
+  .chip.is-on{color:var(--ink);border-bottom-color:var(--gold-deep)}
+  .chip:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+  /* Three plain steps, so nobody has to guess what the plot wants next. */
+  .steps{
+    list-style:none;display:flex;flex-wrap:wrap;gap:.6rem 1.8rem;margin-bottom:1.4rem;
+  }
+  .steps li{
+    display:flex;align-items:center;gap:.6rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--faint);
+  }
+  .steps b{
+    display:grid;place-items:center;width:1.35rem;height:1.35rem;border-radius:50%;
+    border:1px solid var(--rule);font-weight:500;font-size:.62rem;color:var(--faint);
+  }
+  .steps li.is-now{color:var(--ink)}
+  .steps li.is-now b{border-color:var(--gold-deep);background:var(--gold);color:#2A1F0C}
+  .steps li.is-done{color:var(--faint)}
+  .steps li.is-done b{border-color:var(--leaf);color:var(--leaf)}
+  .steps li.is-done b::after{content:"✓";font-size:.7rem}
+  .steps li.is-done b{font-size:0}
+
+  /* The one line telling her what to do now — readable, not a tiny caption. */
+  .say{
+    font-size:1.05rem;line-height:1.55;color:var(--ink);max-width:44ch;margin-bottom:1.1rem;
+  }
+
+  .tools{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;margin-bottom:1.1rem}
+  .tool{
+    font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink);background:none;
+    border:0;border-bottom:1px solid var(--ink);padding:.4rem .1rem;
+    cursor:pointer;will-change:transform;
+  }
+  .tool[disabled]{color:var(--rule);border-bottom-color:var(--rule);cursor:default}
+  .tool:focus-visible{outline:2px solid var(--gold);outline-offset:5px}
+  .state{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+
+  .field{
+    position:relative;height:min(340px,52vh);cursor:crosshair;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,0) 46%),
+      linear-gradient(180deg,var(--paper-deep) 0%,var(--paper-deep) 66%,#DCD4BE 66%,#CFC6AC 100%);
+    border:1px solid var(--rule);overflow:hidden;touch-action:manipulation;
+  }
+  .field:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+  .horizon{position:absolute;left:0;right:0;top:66%;height:1px;background:var(--rule);transform-origin:left center}
+  .field-hint{
+    position:absolute;left:0;right:0;top:34%;text-align:center;
+    font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.26em;
+    text-transform:uppercase;color:var(--faint);pointer-events:none;
+    transition:opacity var(--spring-soft);
+  }
+  #seeds circle,#petals-back ellipse,#petals-front ellipse{transform-box:fill-box}
+  #seeds circle{transform-origin:50% 50%}
+  #petals-back ellipse,#petals-front ellipse{transform-origin:50% 100%}
+
+  .plant{position:absolute;bottom:12%;transform:translateX(-50%);will-change:transform}
+  .plant .body{display:block;transform-origin:bottom center;will-change:transform}
+  .plant .body svg{display:block}
+  .plant.bloomed{cursor:pointer}
+  .plant .tag{
+    position:absolute;left:50%;top:100%;transform:translateX(-50%);
+    margin-top:.35rem;white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--sepia);
+  }
+  .drop{position:absolute;width:3px;height:12px;border-radius:2px;background:#8FB4C9;opacity:.75;pointer-events:none}
+  .ripple{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:1px solid var(--gold-deep);pointer-events:none}
+
+  .ledger{
+    margin-top:.9rem;display:flex;justify-content:space-between;gap:1rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--faint);
+  }
+  .ledger b{color:var(--ink);font-weight:500}
+
+  /* The colour drains over the same few seconds the head takes to go down. */
+  .plant .body{transition:filter 3400ms cubic-bezier(.7,.02,.85,.45)}
+  .plant.wilted .body{filter:grayscale(.6) brightness(.86) saturate(.55)}
+  .pairglow{
+    position:absolute;top:56%;width:38%;aspect-ratio:1;border-radius:50%;
+    transform:translate(-50%,-50%);pointer-events:none;opacity:0;
+    background:radial-gradient(circle closest-side,rgba(255,200,110,.5),rgba(255,200,110,0) 72%);
+  }
+
+  .namer{
+    margin-top:1.6rem;display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;
+    padding-left:1rem;border-left:2px solid transparent;
+  }
+  .namer.is-live{border-left-color:var(--gold)}
+  .namer.is-live input[type=text]{border-bottom-color:var(--gold-deep)}
+  .namer label{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sepia)}
+  .namer.is-live label{color:var(--gold-deep)}
+  .plot-note{
+    margin-top:1.2rem;max-width:38ch;color:var(--sepia);
+    font-size:1rem;line-height:1.55;
+  }
+  .plot-note.warm{color:var(--gold-deep)}
+  input[type=text],textarea{
+    font-family:'Newsreader',Georgia,serif;font-size:1rem;color:var(--ink);
+    background:none;border:0;border-bottom:1px solid var(--rule);
+    padding:.4rem .2rem;min-width:12rem;
+  }
+  input[type=text]:focus,textarea:focus{outline:0;border-bottom-color:var(--gold-deep)}
+  textarea{width:100%;max-width:34rem;resize:vertical;line-height:1.55}
+
+  /* ---------- 02 · facts ---------- */
+  .fact{display:grid;grid-template-columns:1fr;gap:1.4rem;align-items:start;min-height:9.5rem}
+  @media(min-width:720px){.fact{grid-template-columns:4.5rem 1fr;gap:0 1.6rem}}
+  .fact-no{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.4rem;line-height:.9;color:var(--gold)}
+  .fact-body{font-size:clamp(1.1rem,2.5vw,1.4rem);line-height:1.55;max-width:36ch}
+  .fact-body .w{display:inline-block;will-change:transform,opacity}
+  .fact-foot{margin-top:2.4rem;display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap}
+  .pips{display:flex;gap:.42rem}
+  .pip{width:5px;height:5px;border-radius:50%;background:var(--rule);will-change:transform}
+  .pip.on{background:var(--gold-deep)}
+
+  /* ---------- 03 · day into night ---------- */
+  .room{
+    position:relative;height:min(400px,58vh);overflow:hidden;border:1px solid var(--rule);
+    background:linear-gradient(180deg,#FBE7BC 0%,#F7D8A2 58%,#E9C489 100%);
+  }
+  .room > *{position:absolute;inset:0}
+  .night{
+    background:linear-gradient(180deg,#131B36 0%,#1D2547 46%,#2A2F4F 100%);
+    opacity:0;
+  }
+  .stars i{position:absolute;display:block;width:2px;height:2px;border-radius:50%;background:#FFF6DC;opacity:0}
+  .moon{inset:auto;right:12%;top:14%;width:64px;height:64px;opacity:0;will-change:transform}
+  .moon svg{width:100%;height:100%;display:block}
+  .daysun{inset:auto;right:13%;top:15%;width:58px;height:58px;border-radius:50%;
+    background:radial-gradient(circle,#FFE9A8 38%,#F7C761 70%,rgba(247,199,97,0) 72%);
+    box-shadow:0 0 60px 24px rgba(255,213,124,.55);will-change:transform}
+  #room-art{width:100%;height:100%}
+  .roomglow{
+    inset:auto;left:50%;top:52%;width:44%;aspect-ratio:1;margin:-22% 0 0 -22%;
+    border-radius:50%;pointer-events:none;opacity:0;
+    background:radial-gradient(circle closest-side,rgba(255,208,124,.46),rgba(255,208,124,0) 72%);
+  }
+  .room-btn{
+    inset:auto;right:1rem;bottom:1rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--ink);background:rgba(255,253,246,.82);
+    border:0;border-radius:0;padding:.55rem 1rem;cursor:pointer;will-change:transform;
+    backdrop-filter:blur(2px);
+  }
+  .room-btn:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+  .room.is-night .room-btn{background:rgba(20,26,50,.7);color:#F6ECD4}
+
+  .theory{margin-top:2.4rem;max-width:46ch}
+  .theory p{font-size:clamp(1.08rem,2.3vw,1.32rem);line-height:1.58}
+  .theory p + p{margin-top:1.1rem;color:var(--sepia)}
+  .theory .w{display:inline-block;will-change:transform,opacity}
+
+  /* ---------- 04 · the question ---------- */
+  .ask{max-width:44rem}
+  .ask-q{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-variation-settings:'wdth' 94;
+    font-size:clamp(1.2rem,2.7vw,1.6rem);line-height:1.25;letter-spacing:-.02em;margin-bottom:1.5rem}
+  .ask-block{margin-bottom:2.4rem}
+  .ask-label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:.6rem}
+  .picker-lg .chip{font-size:.66rem}
+  .picker-lg .chip svg{width:18px;height:27px}
+
+  .gift{
+    position:relative;border:1px solid var(--rule);background:#FFFDF6;
+    padding:2.4rem 2rem;display:grid;gap:1.6rem;justify-items:center;text-align:center;
+  }
+  .gift svg{width:min(150px,40vw);height:auto;display:block}
+  .gift .to{font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep)}
+  .gift .why{font-size:clamp(1.05rem,2.4vw,1.35rem);line-height:1.55;max-width:34ch;font-style:italic}
+  .gift .from{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
+  .gift-tools{display:flex;gap:1.4rem;flex-wrap:wrap;justify-content:center;margin-top:.4rem}
+
+  footer{
+    border-top:1px solid var(--rule);margin-top:2rem;padding:3.4rem 0 5rem;
+    display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+    color:var(--faint);font-family:'IBM Plex Mono',monospace;font-size:.63rem;
+    letter-spacing:.2em;text-transform:uppercase;line-height:2;
+  }
+  footer .note{font-family:'Newsreader',serif;font-size:.95rem;letter-spacing:0;
+    text-transform:none;color:var(--sepia);line-height:1.6;max-width:28ch}
+
+  /* .namer and .gift set their own display, so the attribute needs help */
+  [hidden]{display:none!important}
+
+  /* ---------- pre-animation states ---------- */
+  .motion-ready .intro-shape,
+  .motion-ready #intro-flower,
+  .motion-ready .hi span,
+  .motion-ready .intro-note,
+  .motion-ready .intro-go{opacity:0}
+  .motion-ready .plate-art{opacity:0}
+  .motion-ready #petals-back ellipse,
+  .motion-ready #petals-front ellipse{transform:scale(0)}
+  .motion-ready #seeds circle{opacity:0;transform:scale(0)}
+  .motion-ready h1.title span,
+  .motion-ready .eyebrow .mono,
+  .motion-ready .lede,
+  .motion-ready .scroll-cue{opacity:0}
+  .motion-ready .eyebrow .hair,
+  .motion-ready .hairline,
+  .motion-ready .horizon{transform:scaleX(0)}
+  .motion-ready .entry-no,
+  .motion-ready .entry h2 .w,
+  .motion-ready .entry .sub,
+  .motion-ready .tools,
+  .motion-ready .field,
+  .motion-ready .ledger,
+  .motion-ready .fact,
+  .motion-ready .fact-foot,
+  .motion-ready .theory .w,
+  .motion-ready .ask-block,
+  .motion-ready footer > *{opacity:0}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="sun" id="sun" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="drift" id="drift" aria-hidden="true"></div>
+
+<div class="rail" id="rail" aria-hidden="true">
+  <div class="rail-stem" id="railStem"></div>
+  <div class="rail-label">a small flower book</div>
+</div>
+
+<div class="sheet">
+
+<section class="intro" id="intro">
+  <div class="intro-shape swoosh"></div>
+  <div class="intro-shape slab"></div>
+  <div class="intro-inner">
+    <svg id="intro-flower" viewBox="0 0 200 200" role="img" aria-label="A flower">
+      <g id="intro-petals-a" fill="var(--card-red)"></g>
+      <g id="intro-petals-b" fill="var(--card-red-deep)" opacity=".62"></g>
+      <circle cx="100" cy="100" r="33" fill="var(--card-gold)"/>
+      <circle cx="100" cy="100" r="12" fill="var(--card-ink)"/>
+    </svg>
+    <h1 class="hi" id="hi" aria-label="hi, Diya">hi, Diya</h1>
+    <p class="intro-note">made you something</p>
+  </div>
+  <button class="intro-go" id="introGo">swipe down <span class="arrow">↓</span></button>
+</section>
+
+<div class="shell">
+
+<header class="plate" id="hero">
+  <div class="plate-art">
+    <svg id="hero-flower" viewBox="0 0 300 300" role="img" aria-label="A sunflower whose head turns to follow the light">
+      <g id="stem-group" fill="none" stroke="var(--leaf)" stroke-linecap="round">
+        <path id="stem" d="M150 150 C 147 200, 154 236, 150 300" stroke-width="4"/>
+        <path id="leafL" d="M150 218 C 126 206, 104 210, 96 226 C 118 236, 140 232, 150 218" stroke-width="2.4"/>
+        <path id="leafR" d="M151 252 C 172 242, 191 246, 198 260 C 179 269, 160 265, 151 252" stroke-width="2.4"/>
+      </g>
+      <g id="flower-head">
+        <g id="petals-back" fill="var(--gold-deep)" opacity=".8"></g>
+        <g id="petals-front" fill="var(--gold)"></g>
+        <circle cx="150" cy="118" r="42" fill="var(--seed)"/>
+        <g id="seeds" fill="#6A502C"></g>
+      </g>
+    </svg>
+    <div class="tick-row" aria-hidden="true"></div>
+  </div>
+
+  <div class="plate-text">
+    <div class="eyebrow">
+      <span class="mono">helianthus annuus</span>
+      <span class="hair"></span>
+    </div>
+    <h1 class="title"><span>sunflowers</span></h1>
+    <p class="lede">A very small website about your favourite flower. The head follows you — <i>heliotropism</i>, the same trick it plays on the sun. Scroll, and the sun moves.</p>
+    <div class="scroll-cue"><span class="dot"></span> keep going</div>
+  </div>
+</header>
+
+
+<section class="entry" id="entry-theory">
+  <div class="entry-head">
+    <div class="entry-no">01</div>
+    <div>
+      <h2 data-split>The sunflower theory</h2>
+      <p class="sub">One sunflower, one afternoon. Turn the light off and see what happens.</p>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <div class="room" id="room">
+    <div class="night" id="night"></div>
+    <div class="stars" id="stars"></div>
+    <div class="daysun" id="daysun"></div>
+    <div class="moon" id="moon">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="26" fill="#F7EFD4"/>
+        <circle cx="24" cy="27" r="4.4" fill="#E4D8B4"/>
+        <circle cx="38" cy="38" r="6" fill="#E4D8B4"/>
+        <circle cx="41" cy="22" r="3" fill="#E4D8B4"/>
+      </svg>
+    </div>
+    <svg id="room-art" viewBox="0 0 420 230" role="img" aria-label="A sunflower in an afternoon, then two sunflowers facing each other at night">
+      <g id="th-one">
+        <path d="M210 230 C 207 190, 213 158, 210 126" fill="none" stroke="var(--leaf)" stroke-width="3.4" stroke-linecap="round"/>
+        <g id="th-head-one"></g>
+      </g>
+      <g id="th-two" opacity="0">
+        <path d="M280 230 C 283 190, 277 158, 280 126" fill="none" stroke="var(--leaf)" stroke-width="3.4" stroke-linecap="round"/>
+        <g id="th-head-two"></g>
+      </g>
+    </svg>
+    <div class="roomglow" id="roomglow"></div>
+    <button class="room-btn" id="roomBtn">turn the light off</button>
+  </div>
+
+  <blockquote class="theory">
+    <p data-split>They say that when two sunflowers are kept in a dark room, they'll eventually turn to face towards each other, even when there's no light left to follow.</p>
+    <p data-split>As if, in the absence of the sun, they decide to become each other's warmth, each other's quiet sense of belonging, and more importantly, each other's support and comfort.</p>
+  </blockquote>
+</section>
+
+<section class="entry" id="entry-field">
+  <div class="entry-head">
+    <div class="entry-no">02</div>
+    <div>
+      <h2 data-split>Grow two of your own</h2>
+      <p class="sub">A packet of sunflower seed and a plot big enough for two. Three steps, in order.</p>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <ol class="steps" id="steps">
+    <li data-step="sow"><b>1</b><span>Press the ground to drop a seed in</span></li>
+    <li data-step="water"><b>2</b><span>Water it and wait for it to come up</span></li>
+    <li data-step="name"><b>3</b><span>Give it a name</span></li>
+  </ol>
+
+  <p class="say" id="plotState">Press anywhere on the ground to drop your first seed in.</p>
+
+  <div class="tools">
+    <button class="tool" id="waterBtn" disabled>water the plot</button>
+  </div>
+
+  <div class="field" id="field" role="button" tabindex="0" aria-label="Press to sow a sunflower seed">
+    <div class="horizon"></div>
+    <div class="pairglow" id="pairglow"></div>
+    <div class="field-hint" id="fieldHint">fallow ground</div>
+  </div>
+  <div class="ledger">
+    <span>plot 01 / loam</span>
+    <span id="count"><b>0</b> sown</span>
+  </div>
+
+  <form class="namer" id="namer" hidden>
+    <label for="nameInput" id="nameLabel">name this one</label>
+    <input type="text" id="nameInput" maxlength="24" placeholder="a name" autocomplete="off">
+    <button class="tool" type="submit">tie the label on</button>
+  </form>
+  <p class="plot-note" id="plotNote" hidden></p>
+</section>
+
+<section class="entry" id="entry-facts">
+  <div class="entry-head">
+    <div class="entry-no">03</div>
+    <div>
+      <h2 data-split>Things worth knowing</h2>
+      <p class="sub">Field notes. All of them true, which is the surprising part.</p>
+    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <div class="fact">
+    <div class="fact-no" id="factNo">01</div>
+    <p class="fact-body" id="factText">Young sunflowers track the sun across the sky every day, then reset overnight to face east again by morning.</p>
+  </div>
+  <div class="fact-foot">
+    <button class="tool" id="factBtn">next note</button>
+    <div class="pips" id="pips" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="entry" id="entry-ask">
+  <div class="entry-head">
+    <div class="entry-no">04</div>
+    <div>
+      <h2 data-split>One question</h2>
+    <p class="sub">If you were to give someone a sunflower, what would you hope they understand without you ever saying a word?    </div>
+  </div>
+  <div class="hairline"></div>
+
+  <form class="ask" id="ask">
+    <div class="ask-block">
+      <p class="ask-q">If you had to choose one flower — the whole thing, not just the bloom — which would it be?</p>
+      <div class="picker picker-lg" id="askPicker" role="group" aria-label="Choose a flower"></div>
+    </div>
+
+    <div class="ask-block">
+      <label class="ask-label" for="whyInput">and why that one</label>
+      <textarea id="whyInput" rows="3" maxlength="240" placeholder="because…"></textarea>
+    </div>
+
+    <div class="ask-block">
+      <label class="ask-label" for="toInput">now give it to someone</label>
+      <input type="text" id="toInput" maxlength="32" placeholder="a name" autocomplete="off">
+    </div>
+
+    <button class="tool" type="submit" id="wrapBtn">wrap it up</button>
+  </form>
+
+  <figure class="gift" id="gift" hidden>
+    <div id="giftArt"></div>
+    <figcaption class="to" id="giftTo"></figcaption>
+    <p class="why" id="giftWhy"></p>
+    <p class="from" id="giftFrom"></p>
+    <div class="gift-tools">
+      <button class="tool" id="copyBtn">copy the link</button>
+      <button class="tool" id="againBtn">choose again</button>
+    </div>
+  </figure>
+</section>
+
+<footer>
+</footer>
+
+</div>
+</div>
+
+<script type="module">
+/* ===============================================================
+   PUT YOUR NAME HERE. It is the only thing you need to change, and
+   it is never printed anywhere on the page — it is only ever compared
+   against what she types. Leave it empty and the plot simply behaves,
+   with nothing to find.
+   =============================================================== */
+const YOUR_NAME = "Benno ";
+const HER_NAME = "Diya";
+
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const GOLD_ANGLE = 2.39996323;
+const rand = (a, b) => a + Math.random() * (b - a);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+/* ---------------------------------------------------------------
+   Geometry. All of it runs before Motion loads, so the page is
+   complete even if the CDN never answers.
+----------------------------------------------------------------*/
+function petalRing(group, count, cx, cy, radius, rx, ry, jitter){
+  for (let i = 0; i < count; i++){
+    const a = (i / count) * Math.PI * 2 + rand(-jitter, jitter);
+    const px = cx + Math.cos(a) * radius;
+    const py = cy + Math.sin(a) * radius;
+    /* Rotation lives on a wrapper <g>, leaving the ellipse's own CSS
+       transform free for the bloom animation to own outright. */
+    const g = document.createElementNS(SVG_NS, "g");
+    g.setAttribute("transform", `rotate(${(a * 180 / Math.PI + 90).toFixed(2)} ${px.toFixed(2)} ${py.toFixed(2)})`);
+    const p = document.createElementNS(SVG_NS, "ellipse");
+    p.setAttribute("cx", px.toFixed(2));
+    p.setAttribute("cy", py.toFixed(2));
+    p.setAttribute("rx", (rx * rand(0.88, 1.12)).toFixed(2));
+    p.setAttribute("ry", (ry * rand(0.86, 1.16)).toFixed(2));
+    g.appendChild(p);
+    group.appendChild(g);
+  }
+}
+petalRing(document.getElementById("petals-back"), 13, 150, 118, 66, 12, 31, 0.09);
+petalRing(document.getElementById("petals-front"), 19, 150, 118, 58, 10.5, 27, 0.07);
+
+const seedsGroup = document.getElementById("seeds");
+const SEED_COUNT = 210;
+for (let i = 0; i < SEED_COUNT; i++){
+  const r = 2.72 * Math.sqrt(i), a = i * GOLD_ANGLE;
+  const s = document.createElementNS(SVG_NS, "circle");
+  s.setAttribute("cx", (150 + Math.cos(a) * r).toFixed(2));
+  s.setAttribute("cy", (118 + Math.sin(a) * r).toFixed(2));
+  s.setAttribute("r", (0.7 + (i / SEED_COUNT) * 1.5).toFixed(2));
+  s.setAttribute("fill", i % 3 ? "#6A502C" : "#836341");
+  seedsGroup.appendChild(s);
+}
+
+const tickRow = document.querySelector(".tick-row");
+for (let i = 0; i < 21; i++) tickRow.appendChild(document.createElement("i"));
+
+/* The card's flower: two offset rings of blunt petals, the way a
+   printed one would be built up from flat plates of ink. */
+/* Narrow enough that the two rings interleave instead of merging into a ring. */
+const INTRO_PETAL = "M100 100 C 80 90, 66 64, 75 38 C 81 19, 100 24, 100 52 C 100 24, 119 19, 125 38 C 134 64, 120 90, 100 100 Z";
+[["intro-petals-a", [0, 60, 120, 180, 240, 300]],
+ ["intro-petals-b", [30, 90, 150, 210, 270, 330]]].forEach(([id, angles]) => {
+  const g = document.getElementById(id);
+  angles.forEach(deg => {
+    const p = document.createElementNS(SVG_NS, "path");
+    p.setAttribute("d", INTRO_PETAL);
+    p.setAttribute("transform", `rotate(${deg} 100 100)`);
+    g.appendChild(p);
+  });
+});
+
+/* Per-letter spans so "hi, Diya" can be staggered. */
+const hiEl = document.getElementById("hi");
+const hiLetters = [];
+{
+  const text = hiEl.textContent;
+  hiEl.textContent = "";
+  for (const ch of text){
+    const s = document.createElement("span");
+    s.textContent = ch === " " ? " " : ch;
+    hiEl.appendChild(s);
+    hiLetters.push(s);
+  }
+}
+
+function splitWords(el){
+  const words = el.textContent.trim().split(/\s+/);
+  el.textContent = "";
+  return words.map((w, i) => {
+    const span = document.createElement("span");
+    span.className = "w";
+    span.textContent = w;
+    el.appendChild(span);
+    if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    return span;
+  });
+}
+document.querySelectorAll("h2[data-split], .theory p[data-split]").forEach(splitWords);
+
+/* ---------------------------------------------------------------
+   The garden. Every species draws into the same 100 × 150 canvas so
+   the plot, the picker chips and the gift card share one builder.
+----------------------------------------------------------------*/
+const rot = (deg, cx, cy, body) => `<g transform="rotate(${deg} ${cx} ${cy})">${body}</g>`;
+const stroke = (d, colour, w) =>
+  `<path d="${d}" fill="none" stroke="${colour}" stroke-width="${w}" stroke-linecap="round"/>`;
+
+const FLOWERS = {
+  sunflower: {
+    name: "sunflower",
+    draw(){
+      /* Two rings and a real seeded disc — the same build as the big one on
+         the cover, so the plot does not look like a cheaper drawing. */
+      const ring = (n, radius, rx, ry, jitter) => Array.from({ length: n }, (_, i) => {
+        const a = (i / n) * Math.PI * 2 + rand(-jitter, jitter);
+        const px = 50 + Math.cos(a) * radius, py = 44 + Math.sin(a) * radius;
+        return `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(rx * rand(0.88, 1.12)).toFixed(1)}" ry="${(ry * rand(0.88, 1.14)).toFixed(1)}" transform="rotate(${(a * 180 / Math.PI + 90).toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
+      }).join("");
+      let seeds = "";
+      for (let i = 0; i < 46; i++){
+        const r = 1.95 * Math.sqrt(i), a = i * GOLD_ANGLE;
+        seeds += `<circle cx="${(50 + Math.cos(a) * r).toFixed(1)}" cy="${(44 + Math.sin(a) * r).toFixed(1)}" r="${(0.7 + (i / 46) * 0.7).toFixed(2)}" fill="${i % 3 ? "#6A502C" : "#88663F"}"/>`;
+      }
+      return `
+        ${stroke(`M50 62 C ${rand(45, 52).toFixed(0)} 96, ${rand(48, 55).toFixed(0)} 124, 50 150`, "var(--leaf)", 4)}
+        <path d="M50 104 C 31 96, 20 100, 16 113 C 31 120, 44 113, 50 104" fill="var(--leaf)"/>
+        <path d="M50 124 C 67 117, 78 121, 82 133 C 68 139, 56 133, 50 124" fill="var(--leaf)" opacity=".8"/>
+        <g fill="var(--gold-deep)" opacity=".85">${ring(11, 32, 6.5, 15, 0.09)}</g>
+        <g fill="var(--gold)">${ring(15, 27, 6, 13, 0.07)}</g>
+        <circle cx="50" cy="44" r="14" fill="var(--seed)"/>
+        <g>${seeds}</g>`;
+    }
+  },
+  tulip: {
+    name: "tulip",
+    draw(){
+      return `
+        ${stroke(`M50 150 C ${rand(46, 50).toFixed(0)} 118, ${rand(50, 54).toFixed(0)} 92, 50 66`, "var(--leaf)", 4)}
+        <path d="M50 120 C 32 112, 24 92, 27 74 C 40 86, 47 104, 50 120" fill="var(--leaf)" opacity=".92"/>
+        <path d="M50 134 C 68 126, 76 108, 73 90 C 60 102, 53 118, 50 134" fill="var(--leaf)" opacity=".78"/>
+        <g fill="var(--tulip-deep)">
+          <path d="M36 62 C 28 44, 30 26, 39 14 C 42 32, 42 48, 43 64 Z"/>
+          <path d="M64 62 C 72 44, 70 26, 61 14 C 58 32, 58 48, 57 64 Z"/>
+        </g>
+        <path d="M34 60 C 30 38, 36 18, 50 9 C 64 18, 70 38, 66 60 C 60 69, 40 69, 34 60 Z" fill="var(--tulip)"/>`;
+    }
+  },
+  lotus: {
+    name: "lotus",
+    draw(){
+      const petal = "M50 60 C 43 42, 45 20, 50 6 C 55 20, 57 42, 50 60 Z";
+      const back = [-74, -50, -25, 0, 25, 50, 74].map(d => rot(d, 50, 60, `<path d="${petal}"/>`)).join("");
+      const front = [-54, -27, 0, 27, 54].map(d => rot(d, 50, 60, `<path d="${petal}"/>`)).join("");
+      return `
+        ${stroke("M50 62 C 48 96, 52 126, 50 150", "var(--leaf)", 3.4)}
+        <ellipse cx="26" cy="140" rx="17" ry="4.4" fill="var(--leaf)" opacity=".55"/>
+        <ellipse cx="77" cy="145" rx="13" ry="3.6" fill="var(--leaf)" opacity=".4"/>
+        <g fill="var(--lotus-deep)">${back}</g>
+        <g fill="var(--lotus)">${front}</g>
+        <ellipse cx="50" cy="58" rx="8" ry="4.5" fill="var(--gold)"/>`;
+    }
+  },
+  blossom: {
+    name: "cherry blossom",
+    draw(){
+      const petal = "M50 44 C 41 40, 34 30, 38 21 C 41 15, 47 16, 50 24 C 53 16, 59 15, 62 21 C 66 30, 59 40, 50 44 Z";
+      const outer = [36, 108, 180, 252, 324].map(d => rot(d, 50, 44, `<path d="${petal}"/>`)).join("");
+      const inner = [0, 72, 144, 216, 288].map(d => rot(d, 50, 44, `<path d="${petal}"/>`)).join("");
+      const stamens = [0, 90, 180, 270].map(d =>
+        rot(d, 50, 44, `<circle cx="50" cy="36" r="1.7" fill="var(--gold-deep)"/>`)).join("");
+      return `
+        ${stroke("M50 46 C 53 74, 45 100, 52 124 C 55 136, 51 143, 50 150", "#7A5C3A", 3.2)}
+        <circle cx="41" cy="98" r="4.5" fill="var(--blossom-deep)"/>
+        <g fill="var(--blossom-deep)" opacity=".85">${outer}</g>
+        <g fill="var(--blossom)">${inner}</g>
+        <circle cx="50" cy="44" r="4" fill="var(--gold)"/>
+        ${stamens}`;
+    }
+  },
+  lavender: {
+    name: "lavender",
+    draw(){
+      let buds = "";
+      for (let i = 0; i < 17; i++){
+        const t = i / 16, y = 74 - t * 62;
+        const spread = (1 - t) * 7 + 1.5;
+        const x = 50 + (i % 2 ? spread : -spread);
+        const r = 4.6 - t * 2;
+        buds += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${r.toFixed(1)}" ry="${(r * 1.3).toFixed(1)}" fill="var(--lavender${i % 3 ? "" : "-deep"})"/>`;
+      }
+      return `
+        ${stroke("M50 150 C 49 122, 51 96, 50 74", "var(--leaf)", 3)}
+        <path d="M50 128 C 40 122, 33 112, 35 101 C 44 109, 49 119, 50 128" fill="var(--leaf)" opacity=".85"/>
+        <path d="M50 138 C 60 132, 67 122, 65 111 C 56 119, 51 129, 50 138" fill="var(--leaf)" opacity=".7"/>
+        ${buds}`;
+    }
+  },
+  daisy: {
+    name: "daisy",
+    draw(){
+      const n = 13;
+      const ring = Array.from({ length: n }, (_, i) => {
+        const a = (i / n) * Math.PI * 2 + rand(-0.06, 0.06);
+        const px = 50 + Math.cos(a) * 21, py = 46 + Math.sin(a) * 21;
+        return `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${rand(4, 5.4).toFixed(1)}" ry="${rand(12, 15).toFixed(1)}" transform="rotate(${(a * 180 / Math.PI + 90).toFixed(1)} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
+      }).join("");
+      return `
+        ${stroke(`M50 60 C ${rand(46, 50).toFixed(0)} 92, ${rand(50, 54).toFixed(0)} 122, 50 150`, "var(--leaf)", 3)}
+        <path d="M50 108 C 38 102, 31 90, 34 80 C 43 88, 48 98, 50 108" fill="var(--leaf)" opacity=".85"/>
+        <g fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width=".8">${ring}</g>
+        <circle cx="50" cy="46" r="9" fill="var(--gold)"/>
+        <circle cx="50" cy="46" r="9" fill="var(--gold-deep)" opacity=".35"/>`;
+    }
+  }
+};
+const FLOWER_KEYS = ["sunflower", "tulip", "lotus", "blossom", "lavender", "daisy"];
+
+function flowerSVG(key, height, lean){
+  const tilt = lean === undefined ? rand(-4, 4) : lean;
+  return `<svg width="${(height * (2 / 3)).toFixed(1)}" height="${height.toFixed(1)}" viewBox="0 0 100 150"
+    style="transform:rotate(${tilt.toFixed(2)}deg)" aria-hidden="true">${FLOWERS[key].draw()}</svg>`;
+}
+/* The two earlier stages of the same plant. */
+function seedSVG(height){
+  return `<svg width="${(height * (2 / 3)).toFixed(1)}" height="${height.toFixed(1)}" viewBox="0 0 100 150" aria-hidden="true">
+    <ellipse cx="50" cy="142" rx="19" ry="6" fill="#B9A886" opacity=".55"/>
+    <ellipse cx="50" cy="136" rx="5.5" ry="7.5" transform="rotate(14 50 136)" fill="var(--seed)"/>
+  </svg>`;
+}
+function sproutSVG(height){
+  return `<svg width="${(height * (2 / 3)).toFixed(1)}" height="${height.toFixed(1)}" viewBox="0 0 100 150" aria-hidden="true">
+    <ellipse cx="50" cy="146" rx="17" ry="5" fill="#B9A886" opacity=".45"/>
+    ${stroke("M50 148 C 49 132, 51 122, 50 112", "var(--leaf)", 3)}
+    <path d="M50 122 C 38 118, 31 110, 33 101 C 42 105, 48 114, 50 122" fill="var(--leaf)"/>
+    <path d="M50 128 C 62 124, 69 116, 67 107 C 58 111, 52 120, 50 128" fill="var(--leaf)" opacity=".82"/>
+  </svg>`;
+}
+
+const PETAL_MARKS = {
+  sunflower: `<ellipse cx="20" cy="30" rx="7" ry="17" fill="var(--gold)"/>`,
+  tulip: `<path d="M20 52 C 10 38, 10 18, 20 6 C 30 18, 30 38, 20 52 Z" fill="var(--tulip)"/>`,
+  lotus: `<path d="M20 54 C 12 38, 14 16, 20 4 C 26 16, 28 38, 20 54 Z" fill="var(--lotus)"/>`,
+  blossom: `<path d="M20 46 C 10 42, 4 30, 8 20 C 11 13, 18 15, 20 24 C 22 15, 29 13, 32 20 C 36 30, 30 42, 20 46 Z" fill="var(--blossom)"/>`,
+  lavender: `<g fill="var(--lavender)"><ellipse cx="20" cy="16" rx="4" ry="5"/><ellipse cx="16" cy="27" rx="4.4" ry="5.6"/><ellipse cx="24" cy="38" rx="4" ry="5"/></g>`,
+  daisy: `<ellipse cx="20" cy="30" rx="5.5" ry="16" fill="var(--daisy)" stroke="var(--daisy-edge)" stroke-width=".8"/>`
+};
+
+/* The pair in the dark room. */
+function roomHead(id, cx, cy, restDeg){
+  const head = document.getElementById(id);
+  const back = document.createElementNS(SVG_NS, "g");
+  back.setAttribute("fill", "#8A5F14");
+  back.setAttribute("opacity", ".85");
+  const front = document.createElementNS(SVG_NS, "g");
+  front.setAttribute("fill", "var(--gold)");
+  head.append(back, front);
+  petalRing(back, 11, cx, cy, 33, 5.4, 15.5, 0.08);
+  petalRing(front, 15, cx, cy, 28, 5, 13.5, 0.06);
+
+  const disc = document.createElementNS(SVG_NS, "circle");
+  disc.setAttribute("cx", cx); disc.setAttribute("cy", cy); disc.setAttribute("r", 16.5);
+  disc.setAttribute("fill", "#2B1E0E");
+  head.appendChild(disc);
+
+  const dots = document.createElementNS(SVG_NS, "g");
+  dots.setAttribute("fill", "#6A502C");
+  for (let i = 0; i < 32; i++){
+    const r = 2.6 * Math.sqrt(i), a = i * GOLD_ANGLE;
+    const d = document.createElementNS(SVG_NS, "circle");
+    d.setAttribute("cx", (cx + Math.cos(a) * r).toFixed(2));
+    d.setAttribute("cy", (cy + Math.sin(a) * r).toFixed(2));
+    d.setAttribute("r", "1.35");
+    dots.appendChild(d);
+  }
+  head.appendChild(dots);
+
+  head.style.transformBox = "fill-box";
+  head.style.transformOrigin = "50% 50%";
+  head.style.transform = `rotate(${restDeg}deg)`;
+  return head;
+}
+const headOne = roomHead("th-head-one", 210, 108, 0);
+const headTwo = roomHead("th-head-two", 280, 108, 0);
+
+const starsEl = document.getElementById("stars");
+const starDots = [];
+for (let i = 0; i < 34; i++){
+  const s = document.createElement("i");
+  s.style.left = rand(2, 98).toFixed(1) + "%";
+  s.style.top = rand(3, 62).toFixed(1) + "%";
+  const size = rand(1.4, 3).toFixed(1);
+  s.style.width = size + "px";
+  s.style.height = size + "px";
+  starsEl.appendChild(s);
+  starDots.push(s);
+}
+
+/* Petals falling through the page. Scattered by CSS so the layer still
+   reads as a garden with no script running at all. */
+const driftEl = document.getElementById("drift");
+const driftPetals = [];
+for (let i = 0; i < 18; i++){
+  const mark = document.createElement("i");
+  const w = rand(15, 38), topPct = rand(-12, 104);
+  mark.style.width = w.toFixed(1) + "px";
+  mark.style.height = (w * 1.5).toFixed(1) + "px";
+  mark.style.left = rand(-3, 99).toFixed(1) + "%";
+  mark.style.top = topPct.toFixed(1) + "vh";
+  mark.style.opacity = rand(0.1, 0.28).toFixed(2);
+  mark.dataset.top = topPct;
+  mark.innerHTML = `<svg viewBox="0 0 40 60">${PETAL_MARKS[FLOWER_KEYS[i % FLOWER_KEYS.length]]}</svg>`;
+  driftEl.appendChild(mark);
+  driftPetals.push(mark);
+}
+
+/* ---------------------------------------------------------------
+   Pickers
+----------------------------------------------------------------*/
+function buildPicker(el, initial, onPick){
+  FLOWER_KEYS.forEach(key => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (key === initial ? " is-on" : "");
+    b.dataset.flower = key;
+    b.setAttribute("aria-pressed", String(key === initial));
+    b.innerHTML = flowerSVG(key, 20, 0) + `<span>${FLOWERS[key].name}</span>`;
+    el.appendChild(b);
+  });
+  return key => {
+    el.querySelectorAll(".chip").forEach(c => {
+      const on = c.dataset.flower === key;
+      c.classList.toggle("is-on", on);
+      c.setAttribute("aria-pressed", String(on));
+    });
+    onPick(key);
+  };
+}
+
+/* The plot only ever takes sunflower seed. */
+const sowing = "sunflower";
+
+const askPickerEl = document.getElementById("askPicker");
+let chosen = "sunflower";
+const selectChosen = buildPicker(askPickerEl, chosen, k => { chosen = k; });
+
+/* ---------------------------------------------------------------
+   02 · sow → water → bloom → name
+----------------------------------------------------------------*/
+const field = document.getElementById("field");
+const fieldHint = document.getElementById("fieldHint");
+const countEl = document.getElementById("count");
+const stateEl = document.getElementById("plotState");
+const waterBtn = document.getElementById("waterBtn");
+const namer = document.getElementById("namer");
+const nameLabel = document.getElementById("nameLabel");
+const nameInput = document.getElementById("nameInput");
+const plotNote = document.getElementById("plotNote");
+const pairGlow = document.getElementById("pairglow");
+
+const MAX_PLANTS = 2;
+const plants = [];
+let naming = null;
+
+const stepEls = [...document.querySelectorAll(".steps li")];
+function markStep(now){
+  const order = ["sow", "water", "name"];
+  const i = order.indexOf(now);
+  stepEls.forEach((li, n) => {
+    li.classList.toggle("is-now", n === i);
+    li.classList.toggle("is-done", n < i);
+  });
+}
+
+function setState(){
+  const seeds = plants.filter(p => p.stage === "seed").length;
+  const blooms = plants.filter(p => p.stage === "bloom").length;
+  countEl.innerHTML = `<b>${plants.length}</b> sown`;
+  waterBtn.disabled = seeds === 0;
+
+  if (seeds > 0){
+    markStep("water");
+    stateEl.textContent = seeds === 1
+      ? "One seed is in. Now press “water the plot” and give it a drink."
+      : "Both seeds are in. Press “water the plot”.";
+  } else if (blooms === 0){
+    markStep("sow");
+    stateEl.textContent = "Press anywhere on the ground to drop your first seed in.";
+  } else if (blooms === 1){
+    markStep("sow");
+    stateEl.textContent = "One is up, and it came with a label already on it. There is room for one more — press the ground again.";
+  } else if (paired){
+    markStep("name");
+    stateEl.textContent = "That is the plot full, and both of them doing well.";
+  } else {
+    markStep("name");
+    stateEl.textContent = "Both are up. The second one still needs a name — type it in below.";
+  }
+}
+
+function sow(xPct){
+  if (plants.length >= MAX_PLANTS){
+    stateEl.textContent = "two is as much as a plot this size will take";
+    return null;
+  }
+  const wrap = document.createElement("div");
+  wrap.className = "plant";
+  wrap.style.left = clamp(xPct, 5, 95).toFixed(1) + "%";
+  wrap.style.bottom = rand(7, 20).toFixed(1) + "%";
+  const body = document.createElement("span");
+  body.className = "body";
+  const height = rand(92, 132);
+  body.innerHTML = seedSVG(height);
+  wrap.appendChild(body);
+  field.appendChild(wrap);
+
+  const plant = { wrap, body, height, stage: "seed", species: sowing, name: "" };
+  plants.push(plant);
+  fieldHint.style.opacity = "0";
+  setState();
+  return plant;
+}
+
+function sprout(plant){
+  plant.stage = "sprout";
+  plant.body.innerHTML = sproutSVG(plant.height);
+}
+function setTag(plant, value){
+  let tag = plant.wrap.querySelector(".tag");
+  if (!value){ if (tag) tag.remove(); return null; }
+  if (!tag){
+    tag = document.createElement("span");
+    tag.className = "tag";
+    plant.wrap.appendChild(tag);
+  }
+  tag.textContent = value;
+  return tag;
+}
+function note(text, warm){
+  plotNote.textContent = text;
+  plotNote.classList.toggle("warm", !!warm);
+  plotNote.hidden = false;
+  onNote();
+}
+
+let onBloom = () => {};
+let onFirstTag = () => {};
+let onWilt = () => {};
+let onRevive = () => {};
+let onPair = () => {};
+let onNote = () => {};
+
+function bloom(plant){
+  plant.stage = "bloom";
+  plant.body.innerHTML = flowerSVG(plant.species, plant.height);
+  plant.wrap.classList.add("bloomed");
+  onBloom(plant);
+
+  if (plants.indexOf(plant) === 0){
+    /* The first one up is already spoken for. */
+    plant.name = HER_NAME;
+    plant.locked = true;
+    onFirstTag(setTag(plant, HER_NAME));
+  } else {
+    plant.wrap.tabIndex = 0;
+    plant.wrap.setAttribute("role", "button");
+    plant.wrap.setAttribute("aria-label", "Name this sunflower");
+    /* The plant owns its own gestures. Without stopPropagation these would
+       bubble to the plot and sow a fresh seed on top of the flower. */
+    plant.wrap.addEventListener("click", e => { e.stopPropagation(); openNamer(plant); });
+    plant.wrap.addEventListener("keydown", e => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault(); e.stopPropagation();
+      openNamer(plant);
+    });
+    openNamer(plant);
+  }
+  setState();
+}
+
+function openNamer(plant){
+  naming = plant;
+  namer.hidden = false;
+  namer.classList.add("is-live");
+  nameLabel.textContent = "and this one — whoever comes to mind";
+  nameInput.value = plant.name;
+  nameInput.focus();
+}
+
+/* Compared, never printed. Case, spacing and punctuation are all ignored, so a
+   surname or a heart on the end does not break it. */
+const normalise = s => (s || "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+function isTheOne(value){
+  const target = normalise(YOUR_NAME);
+  if (!target) return true;          // nothing configured, so nothing to miss
+  const typed = normalise(value);
+  return typed === target || typed.includes(target);
+}
+
+let paired = false;
+function applyName(){
+  if (!naming) return null;
+  const value = nameInput.value.trim().slice(0, 24);
+  if (!value) return null;
+  const tag = setTag(naming, value);
+  naming.name = value;
+  const first = plants[0];
+
+  if (isTheOne(value)){
+    paired = true;
+    naming = null;
+    namer.hidden = true;
+    namer.classList.remove("is-live");
+    first.wrap.classList.remove("wilted");
+    onRevive(first);
+    onPair(plants[0], plants[1]);
+    note("They have turned to face each other.", true);
+  } else {
+    paired = false;
+    first.wrap.classList.add("wilted");
+    onWilt(first);
+    note(`The one labelled ${HER_NAME} has started to droop.  `, false);
+    nameInput.select();
+  }
+  setState();
+  return tag;
+}
+
+/* Base behaviour. The Motion branch replaces these with animated versions. */
+let doSow = xPct => { sow(xPct); };
+let doWater = () => {
+  plants.filter(p => p.stage === "seed").forEach(p => { sprout(p); bloom(p); });
+  setState();
+};
+
+namer.addEventListener("submit", e => { e.preventDefault(); applyName(); });
+
+/* ---------------------------------------------------------------
+   02 · facts
+----------------------------------------------------------------*/
+const facts = [
+  "Young sunflowers track the sun across the sky every day, then reset overnight to face east again by morning.",
+  "A sunflower head is not one flower — it is up to 2,000 tiny flowers packed into a single disc.",
+  "The seeds spiral in Fibonacci counts: usually 34 curves one way, 55 the other. The ones above you are set the same way.",
+  "Sunflowers were planted around Chernobyl and Fukushima because they draw toxins up out of contaminated soil.",
+  "The tallest sunflower ever grown reached 9.17 metres — roughly a three-storey building.",
+  "Mature sunflowers stop tracking and permanently face east. It keeps them warmer, and bees prefer a warm flower.",
+  "Vincent van Gogh painted sunflowers eleven times. He considered them his signature flower.",
+  "Oil, seeds, stalks, husks — almost nothing about the plant goes to waste."
+];
+let factIndex = 0;
+const factText = document.getElementById("factText");
+const factNo = document.getElementById("factNo");
+const factBtn = document.getElementById("factBtn");
+const pipsEl = document.getElementById("pips");
+const pips = facts.map((_, i) => {
+  const d = document.createElement("span");
+  d.className = "pip" + (i === 0 ? " on" : "");
+  pipsEl.appendChild(d);
+  return d;
+});
+let nextFact = () => {
+  factIndex = (factIndex + 1) % facts.length;
+  factText.textContent = facts[factIndex];
+  factNo.textContent = String(factIndex + 1).padStart(2, "0");
+  pips.forEach((p, i) => p.classList.toggle("on", i === factIndex));
+};
+
+/* ---------------------------------------------------------------
+   03 · the room
+----------------------------------------------------------------*/
+const room = document.getElementById("room");
+const roomBtn = document.getElementById("roomBtn");
+let isNight = false;
+let toggleNight = () => {
+  isNight = !isNight;
+  room.classList.toggle("is-night", isNight);
+  document.getElementById("night").style.opacity = isNight ? "1" : "0";
+  document.getElementById("moon").style.opacity = isNight ? "1" : "0";
+  document.getElementById("daysun").style.opacity = isNight ? "0" : "1";
+  document.getElementById("roomglow").style.opacity = isNight ? "1" : "0";
+  document.getElementById("th-two").style.opacity = isNight ? "1" : "0";
+  starDots.forEach(s => { s.style.opacity = isNight ? "0.85" : "0"; });
+  headOne.style.transform = `rotate(${isNight ? 21 : 0}deg)`;
+  headTwo.style.transform = `rotate(${isNight ? -21 : 0}deg)`;
+  document.getElementById("th-one").style.transform = isNight ? "translateX(-70px)" : "translateX(0px)";
+  roomBtn.textContent = isNight ? "bring the sun back" : "turn the light off";
+};
+
+/* ---------------------------------------------------------------
+   04 · one question, then give it away
+----------------------------------------------------------------*/
+const askForm = document.getElementById("ask");
+const whyInput = document.getElementById("whyInput");
+const toInput = document.getElementById("toInput");
+const giftEl = document.getElementById("gift");
+const giftArt = document.getElementById("giftArt");
+const giftTo = document.getElementById("giftTo");
+const giftWhy = document.getElementById("giftWhy");
+const giftFrom = document.getElementById("giftFrom");
+const copyBtn = document.getElementById("copyBtn");
+const againBtn = document.getElementById("againBtn");
+
+function encodeGift(g){
+  return btoa(encodeURIComponent(JSON.stringify(g))).replace(/=+$/, "");
+}
+function decodeGift(s){
+  try {
+    const g = JSON.parse(decodeURIComponent(atob(s)));
+    if (!FLOWER_KEYS.includes(g.f)) return null;
+    return { f: g.f, w: String(g.w || "").slice(0, 240), t: String(g.t || "").slice(0, 32) };
+  } catch { return null; }
+}
+/* Everything here is set with textContent — the gift can arrive from a URL,
+   so none of it is ever treated as markup. */
+function showGift(g, received){
+  giftArt.innerHTML = flowerSVG(g.f, 220, rand(-3, 3));
+  giftTo.textContent = g.t ? `for ${g.t}` : `a ${FLOWERS[g.f].name}`;
+  giftWhy.textContent = g.w ? `“${g.w}”` : `A ${FLOWERS[g.f].name}, chosen without explanation. Fair.`;
+  giftFrom.textContent = received ? "someone picked this one for you" : "yours to send on";
+  askForm.hidden = true;
+  giftEl.hidden = false;
+}
+let makeGift = () => {
+  const g = { f: chosen, w: whyInput.value.trim(), t: toInput.value.trim() };
+  location.hash = "g=" + encodeGift(g);
+  showGift(g, false);
+};
+let resetGift = () => {
+  giftEl.hidden = true;
+  askForm.hidden = false;
+  history.replaceState(null, "", location.pathname + location.search);
+};
+askForm.addEventListener("submit", e => { e.preventDefault(); makeGift(); });
+againBtn.addEventListener("click", () => resetGift());
+copyBtn.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    copyBtn.textContent = "link copied";
+    setTimeout(() => { copyBtn.textContent = "copy the link"; }, 1800);
+  } catch {
+    copyBtn.textContent = "copy from the address bar";
+  }
+});
+
+const incoming = location.hash.startsWith("#g=") ? decodeGift(location.hash.slice(3)) : null;
+if (incoming){
+  selectChosen(incoming.f);
+  whyInput.value = incoming.w;
+  toInput.value = incoming.t;
+  showGift(incoming, true);
+}
+
+/* ---------------------------------------------------------------
+   Motion. Everything above already works; this only adds life.
+----------------------------------------------------------------*/
+let M = null;
+if (!reduce){
+  try {
+    M = await import("https://cdn.jsdelivr.net/npm/motion@12/+esm");
+  } catch (err) {
+    console.warn("Motion unavailable, falling back to a still page.", err);
+  }
+}
+
+if (!M){
+  document.getElementById("introGo").addEventListener("click", () => {
+    document.getElementById("hero").scrollIntoView();
+  });
+  /* Only registered without Motion — press() supplies keyboard activation of
+     its own, and having both would sow two seeds per Enter. */
+  field.addEventListener("keydown", e => {
+    if (e.target !== field) return;   // a focused flower handles its own keys
+    if (e.key === "Enter" || e.key === " "){ e.preventDefault(); doSow(rand(8, 92)); }
+  });
+  field.addEventListener("click", e => {
+    if (e.target.closest(".plant")) return;   // the flower handles its own press
+    const r = field.getBoundingClientRect();
+    doSow(((e.clientX - r.left) / r.width) * 100);
+  });
+  waterBtn.addEventListener("click", () => doWater());
+  factBtn.addEventListener("click", () => nextFact());
+  roomBtn.addEventListener("click", () => toggleNight());
+  askPickerEl.addEventListener("click", e => {
+    const c = e.target.closest(".chip");
+    if (c) selectChosen(c.dataset.flower);
+  });
+} else {
+  const {
+    animate, stagger, inView, scroll, hover, press,
+    motionValue, springValue, transformValue, svgEffect, styleEffect
+  } = M;
+
+  document.documentElement.classList.add("motion-ready");
+
+  /* --- 1. The card --- */
+  animate(".swoosh",
+    { opacity: [0, 1], transform: ["translateX(-16%) rotate(-16deg)", "translateX(0%) rotate(-9deg)"] },
+    { type: "spring", bounce: 0.24, visualDuration: 0.9 });
+  animate(".slab",
+    { opacity: [0, 1], transform: ["translateX(18%) rotate(14deg)", "translateX(0%) rotate(6deg)"] },
+    { type: "spring", bounce: 0.24, visualDuration: 0.9, delay: 0.12 });
+  /* Independent transforms here, so the slow spin below can take the rotation
+     over cleanly once the entrance has landed. */
+  animate("#intro-flower", { opacity: [0, 1], scale: [0.2, 1], rotate: [-70, 0] },
+    { type: "spring", bounce: 0.42, visualDuration: 0.8, delay: 0.15 });
+  animate(hiLetters,
+    { opacity: [0, 1], transform: ["translateY(38px) rotate(6deg)", "translateY(0px) rotate(0deg)"] },
+    { delay: stagger(0.05, { startDelay: 0.4 }), type: "spring", bounce: 0.3, visualDuration: 0.6 });
+  animate(".intro-note", { opacity: [0, 1] }, { duration: 0.7, delay: 0.9 });
+  animate(".intro-go", { opacity: [0, 1] }, { duration: 0.6, delay: 1.05 });
+  animate(".intro-go .arrow",
+    { transform: ["translateY(0px)", "translateY(5px)"] },
+    { duration: 0.85, delay: 1.3, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
+  /* The flower keeps turning, very slowly, for as long as the card is up. */
+  animate("#intro-flower",
+    { rotate: [0, 360] },
+    { duration: 90, repeat: Infinity, ease: "linear", delay: 1 });
+
+  press("#introGo", el => {
+    animate(el, { scale: 0.95 }, { duration: 0.12, ease: "easeOut" });
+    return (e, info) => {
+      animate(el, { scale: 1 }, { type: "spring", bounce: 0.4, visualDuration: 0.3 });
+      if (info.success) document.getElementById("hero").scrollIntoView({ behavior: "smooth" });
+    };
+  });
+
+  /* --- 2. Heliotropism: cursor + sun position + idle sway, composed --- */
+  const head = document.getElementById("flower-head");
+  const heroSvg = document.getElementById("hero-flower");
+
+  const pointerAngle = motionValue(0);
+  const sunAngle = motionValue(0);
+  const sway = motionValue(0);
+  /* Heavy head, loose neck: low stiffness so it lags behind and settles. */
+  const smoothPointer = springValue(pointerAngle, { stiffness: 55, damping: 13, mass: 1.15 });
+  const smoothSun = springValue(sunAngle, { stiffness: 38, damping: 16, mass: 1 });
+  svgEffect(head, { rotate: transformValue(() => smoothPointer.get() + smoothSun.get() + sway.get()) });
+  animate(sway, [-1.7, 1.7], { duration: 4.6, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
+
+  /* Measured once per resize in document space, so pointermove never reads layout. */
+  let heroDocX = 0, heroDocY = 0, heroW = 0, heroH = 0;
+  const measureHero = () => {
+    const r = heroSvg.getBoundingClientRect();
+    heroDocX = r.left + scrollX; heroDocY = r.top + scrollY;
+    heroW = r.width; heroH = r.height;
+  };
+  measureHero();
+  addEventListener("resize", measureHero, { passive: true });
+
+  addEventListener("pointermove", e => {
+    const cx = heroDocX - scrollX + heroW / 2;
+    const cy = heroDocY - scrollY + heroH * 0.36;
+    const a = Math.atan2(e.clientX - cx, -(e.clientY - cy)) * 180 / Math.PI * 0.34;
+    pointerAngle.set(clamp(a, -17, 17));
+  }, { passive: true });
+
+  /* --- 3. The sun crosses the page as you scroll; the flower follows it --- */
+  const sunX = motionValue(0), sunY = motionValue(0), sunOpacity = motionValue(1);
+  const railOpacity = motionValue(0);
+  const driftY = motionValue(0);
+  styleEffect(document.getElementById("sun"), { x: sunX, y: sunY, opacity: sunOpacity });
+  styleEffect(document.getElementById("rail"), { opacity: railOpacity });
+  styleEffect(driftEl, { y: driftY });
+
+  let vw = innerWidth, vh = innerHeight;
+  addEventListener("resize", () => { vw = innerWidth; vh = innerHeight; }, { passive: true });
+
+  scroll(progress => {
+    sunX.set((-0.3 + progress * 0.6) * vw);
+    sunY.set((-0.34 + progress * 0.92) * vh);
+    sunOpacity.set(1 - progress * 0.45);
+    sunAngle.set((progress - 0.5) * 26);
+    driftY.set(progress * -80);
+    railOpacity.set(clamp((progress - 0.04) * 14, 0, 1));
+  });
+
+  /* Bound to ScrollTimeline where supported, so it runs off the main thread. */
+  scroll(animate(document.getElementById("railStem"),
+    { transform: ["scaleY(0)", "scaleY(1)"] }, { ease: "linear" }));
+
+  /* --- 4. The plate blooms --- */
+  const drawStem = motionValue(0), drawLeaves = motionValue(0);
+  svgEffect("#stem", { pathLength: drawStem });
+  svgEffect("#leafL, #leafR", { pathLength: drawLeaves });
+
+  const heroReveal = () => {
+    animate(".plate-art", { opacity: 1 }, { duration: 0.5 });
+    animate(drawStem, 1, { duration: 1.1, ease: "easeInOut" });
+    animate(drawLeaves, 1, { duration: 0.7, delay: 0.55, ease: "easeOut" });
+    animate("#petals-back ellipse",
+      { transform: ["scale(0) rotate(-24deg)", "scale(1) rotate(0deg)"] },
+      { delay: stagger(0.022, { startDelay: 0.4, from: "center" }), type: "spring", bounce: 0.5, visualDuration: 0.55 });
+    animate("#petals-front ellipse",
+      { transform: ["scale(0) rotate(20deg)", "scale(1) rotate(0deg)"] },
+      { delay: stagger(0.02, { startDelay: 0.58, from: "center" }), type: "spring", bounce: 0.55, visualDuration: 0.5 });
+    /* Index 0 sits at the disc centre, so a plain stagger fills the head
+       outward along the spiral — the order it actually grows in. */
+    animate("#seeds circle",
+      { opacity: [0, 1], transform: ["scale(0)", "scale(1)"] },
+      { delay: stagger(0.0045, { startDelay: 0.75 }), duration: 0.35, ease: "easeOut" });
+    animate("h1.title span",
+      { opacity: [0, 1], transform: ["translateY(105%) rotate(2deg)", "translateY(0%) rotate(0deg)"] },
+      { type: "spring", bounce: 0.22, visualDuration: 0.7, delay: 0.15 });
+    animate(".eyebrow .mono", { opacity: [0, 1] }, { duration: 0.6 });
+    animate(".eyebrow .hair", { transform: ["scaleX(0)", "scaleX(1)"] }, { duration: 0.9, delay: 0.2, ease: "circOut" });
+    animate(".lede", { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] }, { duration: 0.8, delay: 0.4, ease: "easeOut" });
+    animate(".scroll-cue", { opacity: [0, 1] }, { duration: 0.7, delay: 0.7 });
+    animate(".scroll-cue .dot",
+      { transform: ["translateY(0px)", "translateY(5px)"] },
+      { duration: 0.9, delay: 1, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
+  };
+  inView("#hero", heroReveal, { amount: 0.15 });
+
+  /* --- 5. Entries reveal as ruled lines, not floating cards --- */
+  inView(".entry", entry => {
+    const seq = [
+      [entry.querySelector(".entry-no"), { opacity: [0, 1], transform: ["translateY(14px)", "translateY(0px)"] }, { duration: 0.6, ease: "easeOut" }],
+      [entry.querySelectorAll("h2 .w"), { opacity: [0, 1], transform: ["translateY(16px)", "translateY(0px)"] },
+        { duration: 0.55, delay: stagger(0.045), ease: "easeOut", at: "-0.45" }],
+      [entry.querySelector(".sub"), { opacity: [0, 1] }, { duration: 0.7, at: "-0.35" }],
+      [entry.querySelector(".hairline"), { transform: ["scaleX(0)", "scaleX(1)"] }, { duration: 0.85, ease: "circOut", at: "-0.6" }]
+    ].filter(step => step[0] && step[0].length !== 0);
+    animate(seq);
+  }, { amount: 0.25, margin: "0px 0px -12% 0px" });
+
+  inView("#entry-field .field", el => {
+    animate("#entry-field .tools", { opacity: [0, 1] }, { duration: 0.5, delay: 0.1 });
+    animate(el, { opacity: [0, 1], transform: ["translateY(18px)", "translateY(0px)"] }, { duration: 0.7, ease: "easeOut" });
+    animate(".horizon", { transform: ["scaleX(0)", "scaleX(1)"] }, { duration: 1, delay: 0.25, ease: "circOut" });
+    animate("#entry-field .ledger", { opacity: [0, 1] }, { duration: 0.6, delay: 0.4 });
+  }, { amount: 0.2 });
+
+  inView("#entry-facts .fact", el => {
+    animate(el, { opacity: [0, 1], transform: ["translateY(16px)", "translateY(0px)"] }, { duration: 0.7, ease: "easeOut" });
+    animate(".fact-foot", { opacity: [0, 1] }, { duration: 0.6, delay: 0.25 });
+  }, { amount: 0.3 });
+
+  inView("#entry-theory .theory p", el => {
+    animate(el.querySelectorAll(".w"),
+      { opacity: [0, 1], transform: ["translateY(12px)", "translateY(0px)"] },
+      { duration: 0.55, delay: stagger(0.02), ease: "easeOut" });
+  }, { amount: 0.35 });
+
+  inView("#entry-ask .ask-block", el => {
+    animate(el, { opacity: [0, 1], transform: ["translateY(14px)", "translateY(0px)"] },
+      { duration: 0.6, ease: "easeOut" });
+  }, { amount: 0.4 });
+
+  inView("footer > *", el => {
+    animate(el, { opacity: [0, 1], transform: ["translateY(12px)", "translateY(0px)"] }, { duration: 0.7, ease: "easeOut" });
+  }, { amount: 0.4 });
+
+  /* --- 6. Sow, water, bloom, name --- */
+  /* Kept on the plant so wilting or pairing can stop it — an endless rotate
+     loop would otherwise fight both of them for the same property. */
+  const winds = new Map();
+  function windOn(plant){
+    const amp = rand(1.2, 3.2);
+    winds.set(plant, animate(plant.body, { rotate: [-amp, amp] },
+      { duration: rand(2.6, 4.4), delay: rand(0, 1.2), repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }));
+  }
+  function windOff(plant){
+    const w = winds.get(plant);
+    if (w){ w.stop(); winds.delete(plant); }
+  }
+
+  doSow = (xPct, yPx) => {
+    const plant = sow(xPct);
+    /* Everything on .body uses independent transforms, so the wilt and the
+       pairing can compose with what came before instead of fighting it. */
+    animate(plant.body, { opacity: [0, 1], y: [-26, 0], scale: [0.7, 1] },
+      { type: "spring", bounce: 0.5, visualDuration: 0.45 });
+    if (typeof yPx === "number"){
+      const ring = document.createElement("div");
+      ring.className = "ripple";
+      ring.style.left = plant.wrap.style.left;
+      ring.style.top = yPx + "px";
+      field.appendChild(ring);
+      animate(ring, { transform: ["scale(0.2)", "scale(1.9)"], opacity: [0.9, 0] },
+        { duration: 0.7, ease: "easeOut" }).then(() => ring.remove());
+    }
+  };
+
+  let watering = false;
+  doWater = async () => {
+    const seeds = plants.filter(p => p.stage === "seed");
+    if (watering || seeds.length === 0) return;
+    watering = true;
+    waterBtn.disabled = true;
+    stateEl.textContent = "watering";
+
+    /* Rain over the plot first, so the growth reads as a consequence. */
+    const drops = [];
+    for (let i = 0; i < 26; i++){
+      const d = document.createElement("span");
+      d.className = "drop";
+      d.style.left = rand(4, 96).toFixed(1) + "%";
+      d.style.top = "-14px";
+      field.appendChild(d);
+      drops.push(d);
+    }
+    const fieldH = field.getBoundingClientRect().height;
+    await animate(drops,
+      { transform: ["translateY(0px)", `translateY(${fieldH.toFixed(0)}px)`], opacity: [0.85, 0.1] },
+      { duration: 0.6, delay: stagger(0.028), ease: "easeIn" });
+    drops.forEach(d => d.remove());
+
+    for (const plant of seeds){
+      sprout(plant);
+      animate(plant.body,
+        { scaleY: [0.3, 1], scaleX: [0.8, 1], opacity: [0.4, 1] },
+        { type: "spring", bounce: 0.3, visualDuration: 0.5, delay: rand(0, 0.25) });
+    }
+    setState();
+    await new Promise(r => setTimeout(r, 850));
+
+    for (const plant of seeds){
+      bloom(plant);
+      animate(plant.body,
+        { scale: [0.55, 1], scaleY: 1, scaleX: 1, rotate: [-8, 0] },
+        { type: "spring", bounce: 0.5, visualDuration: 0.6, delay: rand(0, 0.3) })
+        .then(() => windOn(plant));
+    }
+    setState();
+    watering = false;
+  };
+
+  onBloom = plant => {
+    if (plants.indexOf(plant) === 0) return;   // the first one is not renameable
+    press(plant.wrap, () => {
+      animate(plant.body, { scale: 0.94 }, { duration: 0.12, ease: "easeOut" });
+      return (e, info) => {
+        animate(plant.body, { scale: 1 }, { type: "spring", bounce: 0.45, visualDuration: 0.35 });
+        if (info.success) openNamer(plant);
+      };
+    });
+  };
+
+  /* Her name arrives on its own, and makes a small point of it. */
+  onFirstTag = tag => {
+    if (!tag) return;
+    animate(tag,
+      { opacity: [0, 1], transform: ["translateX(-50%) translateY(8px) scale(0.8)", "translateX(-50%) translateY(0px) scale(1)"] },
+      { type: "spring", bounce: 0.45, visualDuration: 0.55 });
+    animate(tag, { color: ["#A9761B", "#6B5B43"] }, { duration: 2.2, delay: 0.5, ease: "easeInOut" });
+  };
+  /* Held back so the plot has started to droop before it is described. */
+  onNote = () => {
+    plotNote.style.opacity = "0";
+    animate(plotNote, { opacity: [0, 1], transform: ["translateY(8px)", "translateY(0px)"] },
+      { duration: 0.6, delay: 1.5, ease: "easeOut" });
+  };
+
+  /* A sunflower does not give up all at once. The head dips, holds, then goes
+     over the rest of the way, and a couple of petals let go on the way down. */
+  onWilt = plant => {
+    windOff(plant);
+    animate(pairGlow, { opacity: 0 }, { duration: 0.4 });
+    animate([
+      [plant.body, { rotate: 5 }, { duration: 0.9, ease: "easeInOut" }],
+      [plant.body, { rotate: 9, y: 1 }, { duration: 1.1, ease: "easeInOut", at: "+0.4" }],
+      [plant.body, { rotate: 34, y: 10, scaleY: 0.93 },
+        { type: "spring", stiffness: 26, damping: 15, mass: 1.6, at: "+0.2" }]
+    ]);
+
+    const petals = [...plant.body.querySelectorAll("g:nth-of-type(2) ellipse")];
+    petals.sort(() => Math.random() - 0.5).slice(0, 3).forEach((petal, i) => {
+      petal.style.transformBox = "fill-box";
+      petal.style.transformOrigin = "50% 50%";
+      animate(petal,
+        { y: [0, rand(26, 44)], x: [0, rand(-14, 14)], rotate: [0, rand(-90, 90)], opacity: [1, 0] },
+        { duration: rand(1.6, 2.4), delay: 1.5 + i * 0.55, ease: [0.3, 0.1, 0.5, 1] });
+    });
+  };
+  onRevive = plant => {
+    /* Redrawn, because the petals that fell were animated to nothing. */
+    plant.body.innerHTML = flowerSVG(plant.species, plant.height);
+    animate(plant.body, { rotate: 0, y: 0, scale: 1, scaleY: 1 },
+      { type: "spring", bounce: 0.35, visualDuration: 1 });
+  };
+  onPair = (a, b) => {
+    windOff(a); windOff(b);
+    const ax = parseFloat(a.wrap.style.left), bx = parseFloat(b.wrap.style.left);
+    const [left, right] = ax <= bx ? [a, b] : [b, a];
+    animate(left.body, { rotate: 13 }, { type: "spring", bounce: 0.3, visualDuration: 0.9 });
+    animate(right.body, { rotate: -13 }, { type: "spring", bounce: 0.3, visualDuration: 0.9 });
+    pairGlow.style.left = ((ax + bx) / 2).toFixed(1) + "%";
+    animate(pairGlow, { opacity: [0, 1], scale: [0.5, 1] },
+      { duration: 1.2, delay: 0.25, ease: "easeOut" });
+  };
+
+  press(field, (el, startEvent) => {
+    /* Presses that begin on a flower belong to the flower, not the ground. */
+    const onPlant = startEvent && startEvent.target && startEvent.target.closest
+      && startEvent.target.closest(".plant");
+    animate(".field-hint", { opacity: 0 }, { duration: 0.3 });
+    return (endEvent, info) => {
+      if (!info.success || onPlant) return;
+      const r = field.getBoundingClientRect();
+      const hasPoint = startEvent && typeof startEvent.clientX === "number" && startEvent.clientX !== 0;
+      doSow(hasPoint ? ((startEvent.clientX - r.left) / r.width) * 100 : rand(8, 92),
+            hasPoint ? startEvent.clientY - r.top : rand(0.2, 0.5) * r.height);
+    };
+  });
+
+  namer.addEventListener("submit", e => {
+    e.preventDefault();
+    const tag = applyName();
+    if (tag) animate(tag, { opacity: [0, 1], transform: ["translateX(-50%) translateY(6px)", "translateX(-50%) translateY(0px)"] },
+      { type: "spring", bounce: 0.35, visualDuration: 0.45 });
+  }, true);
+
+  /* --- 7. Facts --- */
+  let swapping = false;
+  nextFact = async () => {
+    if (swapping) return;
+    swapping = true;
+    await animate(factText.querySelectorAll(".w"),
+      { opacity: [1, 0], transform: ["translateY(0px)", "translateY(-9px)"] },
+      { duration: 0.26, delay: stagger(0.012), ease: "easeIn" });
+
+    factIndex = (factIndex + 1) % facts.length;
+    factText.textContent = facts[factIndex];
+    const words = splitWords(factText);
+    pips.forEach((p, i) => p.classList.toggle("on", i === factIndex));
+    animate(pips[factIndex], { scale: [1, 1.9, 1] }, { duration: 0.45, ease: "easeOut" });
+    animate(factNo, { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] }, { duration: 0.4, ease: "easeOut" });
+    factNo.textContent = String(factIndex + 1).padStart(2, "0");
+
+    await animate(words,
+      { opacity: [0, 1], transform: ["translateY(11px)", "translateY(0px)"] },
+      { delay: stagger(0.026), type: "spring", bounce: 0.2, visualDuration: 0.45 });
+    swapping = false;
+  };
+  splitWords(factText);
+
+  /* --- 8. Afternoon into night --- */
+  const nightOpacity = motionValue(0);
+  const moonOpacity = motionValue(0);
+  const daysunOpacity = motionValue(1);
+  const glowOpacity = motionValue(0);
+  const twoOpacity = motionValue(0);
+  const oneShift = motionValue(0);
+  const turnOne = motionValue(0), turnTwo = motionValue(0);
+  const roomSway = motionValue(0);
+  const smoothOne = springValue(turnOne, { stiffness: 44, damping: 15, mass: 1.2 });
+  const smoothTwo = springValue(turnTwo, { stiffness: 44, damping: 15, mass: 1.2 });
+
+  styleEffect(document.getElementById("night"), { opacity: nightOpacity });
+  styleEffect(document.getElementById("moon"), { opacity: moonOpacity });
+  styleEffect(document.getElementById("daysun"), { opacity: daysunOpacity });
+  styleEffect(document.getElementById("roomglow"), { opacity: glowOpacity });
+  svgEffect(document.getElementById("th-two"), { opacity: twoOpacity });
+  svgEffect(document.getElementById("th-one"), { x: oneShift });
+  /* One sway, mirrored, so the pair breathe against each other. */
+  svgEffect(headOne, { rotate: transformValue(() => smoothOne.get() + roomSway.get()) });
+  svgEffect(headTwo, { rotate: transformValue(() => smoothTwo.get() - roomSway.get()) });
+  animate(roomSway, [-1.4, 1.4], { duration: 5.2, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" });
+
+  let turning = false;
+  toggleNight = async () => {
+    if (turning) return;
+    turning = true;
+    isNight = !isNight;
+    room.classList.toggle("is-night", isNight);
+    roomBtn.textContent = isNight ? "bring the sun back" : "turn the light off";
+
+    if (isNight){
+      animate(nightOpacity, 1, { duration: 1, ease: "easeInOut" });
+      animate(daysunOpacity, 0, { duration: 0.7, ease: "easeIn" });
+      animate("#daysun", { transform: ["translateY(0px)", "translateY(70px)"] }, { duration: 1.1, ease: "easeIn" });
+      animate(starDots, { opacity: [0, 0.9] },
+        { duration: 0.8, delay: stagger(0.02, { startDelay: 0.35, from: "center" }), ease: "easeOut" });
+      animate(moonOpacity, 1, { duration: 0.8, delay: 0.4 });
+      animate("#moon", { transform: ["translateY(60px) scale(0.7)", "translateY(0px) scale(1)"] },
+        { type: "spring", bounce: 0.3, visualDuration: 0.9, delay: 0.4 });
+
+      await new Promise(r => setTimeout(r, 700));
+      /* The one that was alone makes room for the other. */
+      animate(oneShift, -70, { type: "spring", bounce: 0.24, visualDuration: 0.8 });
+      await new Promise(r => setTimeout(r, 260));
+      animate(twoOpacity, 1, { duration: 0.5 });
+      animate("#th-two", { transform: ["translateY(46px) scale(0.86)", "translateY(0px) scale(1)"] },
+        { type: "spring", bounce: 0.34, visualDuration: 0.85 });
+
+      await new Promise(r => setTimeout(r, 520));
+      turnOne.set(21);
+      turnTwo.set(-21);
+      animate(glowOpacity, 1, { duration: 1.4, delay: 0.35, ease: "easeOut" });
+      starDots.forEach(s => animate(s,
+        { opacity: [0.9, rand(0.3, 0.6), 0.9] },
+        { duration: rand(2.4, 5), repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: rand(0, 2) }));
+    } else {
+      turnOne.set(0); turnTwo.set(0);
+      animate(glowOpacity, 0, { duration: 0.5 });
+      animate(twoOpacity, 0, { duration: 0.5, delay: 0.15 });
+      animate(oneShift, 0, { type: "spring", bounce: 0.2, visualDuration: 0.8, delay: 0.2 });
+      animate(moonOpacity, 0, { duration: 0.6 });
+      animate("#moon", { transform: ["translateY(0px) scale(1)", "translateY(60px) scale(0.7)"] }, { duration: 0.7, ease: "easeIn" });
+      animate(starDots, { opacity: 0 }, { duration: 0.5, delay: stagger(0.008) });
+      animate(nightOpacity, 0, { duration: 0.9, delay: 0.2, ease: "easeInOut" });
+      animate(daysunOpacity, 1, { duration: 0.7, delay: 0.4 });
+      animate("#daysun", { transform: ["translateY(70px)", "translateY(0px)"] },
+        { type: "spring", bounce: 0.24, visualDuration: 0.9, delay: 0.4 });
+      await new Promise(r => setTimeout(r, 900));
+    }
+    turning = false;
+  };
+
+  press(roomBtn, el => {
+    animate(el, { scale: 0.95 }, { duration: 0.12, ease: "easeOut" });
+    return (e, info) => {
+      animate(el, { scale: 1 }, { type: "spring", bounce: 0.4, visualDuration: 0.3 });
+      if (info.success) toggleNight();
+    };
+  });
+
+  /* --- 9. The question and the gift --- */
+  makeGift = async () => {
+    const g = { f: chosen, w: whyInput.value.trim(), t: toInput.value.trim() };
+    await animate(askForm, { opacity: [1, 0], transform: ["translateY(0px)", "translateY(-10px)"] },
+      { duration: 0.32, ease: "easeIn" });
+    location.hash = "g=" + encodeGift(g);
+    showGift(g, false);
+    animate(giftEl, { opacity: [0, 1], transform: ["translateY(16px)", "translateY(0px)"] },
+      { type: "spring", bounce: 0.22, visualDuration: 0.6 });
+    animate(giftArt.querySelector("svg"),
+      { transform: ["scale(0.4) rotate(-12deg)", "scale(1) rotate(0deg)"] },
+      { type: "spring", bounce: 0.42, visualDuration: 0.7, delay: 0.1 });
+    animate([giftTo, giftWhy, giftFrom],
+      { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] },
+      { duration: 0.5, delay: stagger(0.09, { startDelay: 0.25 }), ease: "easeOut" });
+  };
+  resetGift = async () => {
+    await animate(giftEl, { opacity: [1, 0] }, { duration: 0.28, ease: "easeIn" });
+    giftEl.hidden = true;
+    askForm.hidden = false;
+    history.replaceState(null, "", location.pathname + location.search);
+    animate(askForm, { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0px)"] },
+      { duration: 0.5, ease: "easeOut" });
+  };
+
+  if (incoming){
+    animate(giftArt.querySelector("svg"),
+      { transform: ["scale(0.4) rotate(-12deg)", "scale(1) rotate(0deg)"] },
+      { type: "spring", bounce: 0.42, visualDuration: 0.7, delay: 0.4 });
+  }
+
+  /* --- 10. Chips, buttons, falling petals --- */
+  const chipGesture = (root, select) => {
+    press(root.querySelectorAll(".chip"), el => {
+      animate(el, { scale: 0.94 }, { duration: 0.12, ease: "easeOut" });
+      return (e, info) => {
+        animate(el, { scale: 1 }, { type: "spring", bounce: 0.45, visualDuration: 0.3 });
+        if (!info.success) return;
+        select(el.dataset.flower);
+        animate(el.querySelector("svg"),
+          { transform: ["scale(1)", "scale(1.35)", "scale(1)"] }, { duration: 0.5, ease: "easeOut" });
+      };
+    });
+    hover(root.querySelectorAll(".chip"), el => {
+      const a = animate(el, { y: -2 }, { type: "spring", stiffness: 420, damping: 22 });
+      return () => { a.stop(); animate(el, { y: 0 }, { type: "spring", stiffness: 420, damping: 28 }); };
+    });
+  };
+  chipGesture(askPickerEl, selectChosen);
+
+  press(".tool", el => {
+    if (el.disabled) return;
+    animate(el, { scale: 0.95 }, { duration: 0.12, ease: "easeOut" });
+    return (e, info) => {
+      animate(el, { scale: 1 }, { type: "spring", bounce: 0.4, visualDuration: 0.3 });
+      if (!info.success) return;
+      if (el === waterBtn) doWater();
+      else if (el === factBtn) nextFact();
+      else if (el === againBtn) resetGift();
+    };
+  });
+  hover(".tool", el => {
+    const a = animate(el, { x: 4 }, { type: "spring", stiffness: 400, damping: 22 });
+    return () => { a.stop(); animate(el, { x: 0 }, { type: "spring", stiffness: 400, damping: 30 }); };
+  });
+
+  const vhPx = () => innerHeight / 100;
+  driftPetals.forEach(mark => {
+    const topPct = Number(mark.dataset.top);
+    const from = -(topPct + 28) * vhPx();
+    const to = (128 - topPct) * vhPx();
+    const fall = rand(26, 58);
+    /* Negative delay drops each petal in mid-fall, so nothing starts empty. */
+    animate(mark, { y: [from, to] }, { duration: fall, repeat: Infinity, ease: "linear", delay: -rand(0, fall) });
+    animate(mark, { x: [-20, 20] },
+      { duration: rand(7, 15), repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: -rand(0, 7) });
+    animate(mark, { rotate: [rand(-50, 20), rand(300, 430)] },
+      { duration: rand(24, 52), repeat: Infinity, ease: "linear" });
+  });
+}
+
+setState();
+</script>
+</body>
+</html>
